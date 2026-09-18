@@ -1,0 +1,348 @@
+For an SDET, projects look quite different from normal "JavaScript projects."
+
+You're not primarily trying to prove:
+
+"I can build a website."
+
+You're trying to prove:
+
+"I can understand a software system, identify how it can fail, write automated tests, investigate failures, and build a maintainable automation framework."
+
+So I'd structure your projects as a progression.
+
+1. Tiny projects — where you should start now
+
+These are JavaScript projects, but you deliberately approach them like a tester.
+
+Test Result Analyzer
+
+Input:
+
+const results = [
+    { test: "Login", status: "passed", duration: 120 },
+    { test: "Search", status: "passed", duration: 80 },
+    { test: "Checkout", status: "failed", duration: 230 },
+];
+
+Your program produces:
+
+Total tests: 3
+Passed: 2
+Failed: 1
+Pass rate: 66.67%
+
+Failed tests:
+- Checkout
+
+Slowest test:
+- Checkout (230ms)
+
+You're practicing:
+
+objects
+arrays
+functions
+filter()
+map()
+reduce()
+find()
+some()
+every()
+
+This is a very good project for your current level because it directly resembles test data.
+
+2. Small QA utility projects
+
+Once you learn a little more JS:
+
+Test Data Generator
+
+Generate things such as:
+
+username
+email
+password
+phone number
+age
+product ID
+order ID
+
+For example:
+
+User #1
+email: user284@example.com
+age: 24
+
+User #2
+email: user731@example.com
+age: 41
+
+Then introduce invalid data deliberately:
+
+missing email
+empty password
+age = -5
+invalid email
+duplicate username
+
+Now you're thinking like an automation engineer:
+
+"How can I generate data that tests both valid and invalid behavior?"
+
+3. Validation project
+
+Build something like:
+
+LOGIN VALIDATOR
+────────────────────
+
+Username:
+Password:
+
+✓ Username is valid
+✗ Password must contain 8 characters
+
+Then create automated checks for:
+
+empty username
+empty password
+short password
+long password
+special characters
+valid credentials
+invalid credentials
+
+This introduces test design thinking.
+
+Eventually you'll learn concepts like:
+
+- equivalence partitioning
+- boundary value analysis
+- positive testing
+- negative testing
+
+4. API testing project
+
+This is where your projects start looking much more like actual SDET work.
+
+Eventually:
+
+API
+ │
+ ├── GET /users
+ ├── GET /users/:id
+ ├── POST /users
+ ├── PUT /users/:id
+ └── DELETE /users/:id
+
+Your automation checks:
+
+✓ Status code
+✓ Response body
+✓ Response structure
+✓ Required fields
+✓ Data types
+✓ Response time
+✓ Error responses
+✓ Authentication
+
+For example:
+
+POST /users
+
+Expected:
+201 Created
+
+Actual:
+400 Bad Request
+
+Test: FAILED
+
+Reason:
+email field missing
+
+This is a major SDET skill.
+
+5. UI automation project
+
+Then you reach Playwright.
+
+Instead of simply building a website, you'll take an existing application and automate it.
+
+For example:
+
+E-commerce application
+
+        ↓
+
+        Playwright
+        │
+        ├── Login tests
+        ├── Search tests
+        ├── Product tests
+        ├── Cart tests
+        ├── Checkout tests
+        └── Negative tests
+
+A test might conceptually look like:
+
+Open application
+       ↓
+Login
+       ↓
+Search "laptop"
+       ↓
+Verify results
+       ↓
+Open product
+       ↓
+Add to cart
+       ↓
+Verify cart
+
+But the important part isn't simply making the script work.
+
+You need to think:
+
+What should happen if the product doesn't exist?
+
+What if the login password is wrong?
+
+What if the network request fails?
+
+What if the button isn't available?
+
+What if the product price changes?
+
+That's where testing knowledge + programming come together.
+
+6. Your first proper SDET project
+
+Eventually I'd want you to have something like:
+
+                E-COMMERCE APPLICATION
+                         │
+          ┌──────────────┴──────────────┐
+          │                             │
+       UI TESTS                      API TESTS
+          │                             │
+      Playwright                    API client
+          │                             │
+          └──────────────┬──────────────┘
+                         │
+                  TEST FRAMEWORK
+                         │
+          ┌──────────────┼──────────────┐
+          │              │              │
+       Fixtures         POM          Utilities
+          │              │              │
+          └──────────────┼──────────────┘
+                         │
+                      Reports
+                         │
+                         ▼
+                    CI/CD Pipeline
+                    GitHub Actions
+
+That's much closer to a portfolio-level SDET project.
+
+7. And then there's the really interesting part
+
+A good SDET portfolio doesn't just say:
+
+"I automated 50 test cases."
+
+It can demonstrate the entire testing process.
+
+For example:
+
+Requirement
+     ↓
+Test scenarios
+     ↓
+Test cases
+     ↓
+Manual testing
+     ↓
+Bug discovered
+     ↓
+Bug report
+     ↓
+Fix
+     ↓
+Automated regression test
+     ↓
+API validation
+     ↓
+UI automation
+     ↓
+CI/CD
+     ↓
+Test report
+
+That shows that you understand software testing, not just Playwright syntax.
+
+How I want your projects to evolve
+
+NOW
+│
+├── Test Result Analyzer
+├── Data Validator
+└── Test Data Generator
+│
+│   ← your current JS knowledge
+│
+▼
+JAVASCRIPT
+│
+├── Async Test Runner
+├── JSON Test Reporter
+└── API Response Validator
+│
+│   ← Promises / async / fetch
+│
+▼
+WEB
+│
+├── Browser form testing
+├── DOM interaction
+└── Network inspection
+│
+▼
+PLAYWRIGHT
+│
+├── Login automation
+├── Search automation
+├── E-commerce tests
+└── Negative testing
+│
+▼
+SDET FRAMEWORK
+│
+├── Page Object Model
+├── Fixtures
+├── Test data
+├── API + UI
+├── Reports
+├── Parallel execution
+└── CI/CD
+
+The important thing
+
+Don't wait until you're "ready for projects."
+
+Your projects should grow with you.
+
+Right now, a 50-line JavaScript test-analysis program is more appropriate than a 2,000-line Playwright framework.
+
+Then, as you learn async/await, you modify your project to use asynchronous operations.
+
+When you learn APIs, you make it consume API data.
+
+When you learn DOM, you give it a UI.
+
+When you learn Playwright, you automate that UI.
+
+When you learn CI/CD, you make the tests run automatically.
+
+So eventually one small project can evolve into a serious SDET portfolio project rather than you throwing away everything you built while learning.

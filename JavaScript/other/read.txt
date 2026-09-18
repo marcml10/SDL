@@ -1,0 +1,71 @@
+                    JAVASCRIPT
+                        │
+        ┌───────────────┴────────────────┐
+        │                                │
+   LANGUAGE MODEL                   RUNTIME MODEL
+        │                                │
+   values & types                  execution context
+   variables                      call stack
+   operators                      lexical environment
+   objects                        scope chain
+   functions                      closures
+        │                                │
+        └───────────────┬────────────────┘
+                        │
+                   OBJECT MODEL
+                        │
+                 references
+                 prototypes
+                 inheritance
+                 this
+                 classes
+                        │
+                        ▼
+                  ASYNC JAVASCRIPT
+                        │
+                  callbacks
+                  promises
+                  async/await
+                  event loop
+                  microtasks
+                        │
+                        ▼
+                 MODULE SYSTEM
+                        │
+                 import / export
+                 dependency graphs
+                        │
+                        ▼
+                PROFESSIONAL JS
+                        │
+                error handling
+                testing
+                architecture
+                performance
+                patterns
+
+
+
+
+small changes in the conepts to learn: 
+
+                    JavaScript
+                        │
+          ┌─────────────┴─────────────┐
+          │                           │
+      LANGUAGE                     CAREER
+      FUNDAMENTALS                 APPLICATION
+          │                           │
+      Scope                        Playwright
+      Closures                     API testing
+      Functions                    HTTP
+      Objects                      SQL
+      Types                        Test design
+      this                         Git
+      Promises                     CI/CD
+      Event loop                   Debugging
+          │
+          └───────────┬───────────────┘
+                      ↓
+                QA AUTOMATION
+                   / SDET

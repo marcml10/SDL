@@ -1,0 +1,182 @@
+//  Map 
+Boom. Let's move to the next concept. 🚀
+
+// # Higher-Order Functions → Array Methods
+
+// **Depth: Deep** for your QA/SDET path.
+
+// You've learned that a function can be passed as a value:
+
+function add(a, b) {
+    return a + b;
+}
+
+function calculate(operation) {
+    return operation(10, 20);
+}
+
+calculate(add);
+
+// Now JavaScript uses this idea everywhere with arrays.
+
+// The big ones you'll encounter are:
+
+
+// map
+// filter
+// find
+// some
+// every
+// reduce
+
+
+// We'll learn them **by reasoning**, not by memorizing syntax.
+
+// ---
+
+// # 1. `map()` — transform every element
+
+// Suppose:
+
+const numbers = [1, 2, 3, 4];
+
+
+// You want:
+
+
+[2, 4, 6, 8]
+
+
+// You could use a loop:
+
+js
+const result = [];
+
+for (const number of numbers) {
+    result.push(number * 2);
+}
+
+
+// But `map()` lets you express the idea directly:
+
+const result = numbers.map(function(number) {
+    return number * 2;
+});
+
+// The important thing is:
+
+// map() takes a function and applies it to every element.
+
+// Think:
+
+// numbers
+//   ↓
+//   1 → function → 2
+//   2 → function → 4
+//   3 → function → 6
+//   4 → function → 8
+//   ↓
+// [2, 4, 6, 8]
+
+
+Notice something important:
+
+**`map()` produces a new array.**
+
+---
+
+## 2. The callback
+
+This function:
+
+```js
+function(number) {
+    return number * 2;
+}
+```
+
+is called a **callback function**.
+
+Why?
+
+Because we're giving the function to `map()`, and `map()` is responsible for calling it.
+
+Conceptually:
+
+```js
+numbers.map(callback);
+```
+
+`map()` internally does something roughly like:
+
+```text
+take first element → call callback
+take second element → call callback
+take third element → call callback
+...
+```
+
+You don't need to know its internal implementation. The important mental model is:
+
+> **I give `map()` a function describing what I want done to each element.**
+
+---
+
+# 3. Arrow functions
+
+You'll usually see `map()` written more compactly:
+
+```js
+const result = numbers.map(number => number * 2);
+```
+
+This:
+
+```js
+number => number * 2
+```
+
+is essentially a shorter way of writing:
+
+```js
+function(number) {
+    return number * 2;
+}
+```
+
+We'll properly study arrow functions later.
+
+For now, just recognize the syntax.
+
+---
+
+# Your first prediction 🧠
+
+Don't run this:
+
+```js
+const numbers = [2, 4, 6];
+
+const result = numbers.map(number => {
+    return number + 1;
+});
+
+console.log(result);
+```
+
+### Questions:
+
+1. What is the output?
+2. How many times does the callback execute?
+3. What is the first value passed to the callback?
+4. Does `map()` modify the original `numbers` array?
+
+Trace it like:
+
+```text
+2 → ?
+4 → ?
+6 → ?
+```
+
+Then we'll move to `filter()`, which is where things get more interesting.

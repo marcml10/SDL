@@ -1,0 +1,34 @@
+[
+  {
+    "announcements": {
+      "oai/apps/hasSeenAutoSwitchNux": "2025-10-12T08:43:20.761773+00:00",
+      "oai/apps/hasSeenBurritoNux": "2025-08-13T08:42:11.958879+00:00",
+      "oai/apps/hasSeenExistingUserPersonalityOnboarding": "2026-01-23T13:48:47.456803+00:00",
+      "oai/apps/hasSeenFreeGoChatModelPickerNux": "2026-08-25T04:36:04.261015+00:00",
+      "oai/apps/hasSeenGoTwelveMonthFreeTrial": "2025-11-09T12:50:35.900734+00:00",
+      "oai/apps/hasSeenMaverick": "2025-05-23T15:49:08.663659+00:00",
+      "oai/apps/hasSeenMoonshineNuxV2": "2025-06-09T06:04:03.325685+00:00",
+      "oai/apps/hasSeenOnboarding": "2025-05-23T15:49:20.680631+00:00",
+      "oai/apps/hasSeenPioneer": "2025-05-23T15:49:04.823819+00:00",
+      "oai/apps/hasSeenPlusOrBusinessFreeTrial": "2025-10-31T16:14:15.685330+00:00",
+      "oai/apps/hasSeenPurpleRainNux": "2026-01-23T13:48:50.045493+00:00",
+      "oai/apps/hasSeenTatertotNux": "2025-09-25T05:56:32.133499+00:00",
+      "oai/apps/hasSeenTrailBlazer": "2025-05-23T15:49:04.970389+00:00"
+    },
+    "announcements_loaded": true,
+    "beta_settings": {},
+    "habitat_object_version": 35092571,
+    "settings": {
+      "codex_training_allowed": true,
+      "first_party_project_pins_unmigrated": true,
+      "moonshine": true,
+      "potion_enabled": true,
+      "project_pins_backfilled": true,
+      "show_expanded_code_view": false,
+      "study_mode_project_pins_unmigrated": true,
+      "sunshine": true,
+      "training_allowed": true
+    },
+    "user_id": "user-iwfAHTaoMmfCf9t3ejOHQvBi"
+  }
+]

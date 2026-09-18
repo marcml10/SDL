@@ -1,0 +1,142 @@
+Exactly. ✅ All four are correct.
+
+```js id="x0h4bc"
+const numbers = [2, 4, 6];
+
+const result = numbers.map(number => {
+    return number + 1;
+});
+```
+
+Trace:
+
+```text id="j1q8kt"
+2 → 3
+4 → 5
+6 → 7
+
+result → [3, 5, 7]
+numbers → [2, 4, 6]
+```
+
+And yes, your phrase **"passes on a new one"** is the right idea: `map()` returns a **new array**.
+
+---
+
+# Now `filter()` — Deep
+
+`map()` answers:
+
+> **"What should each element become?"**
+
+`filter()` answers:
+
+> **"Which elements should stay?"**
+
+Suppose:
+
+```js id="h7p5nc"
+const numbers = [1, 2, 3, 4, 5, 6];
+```
+
+We want only even numbers:
+
+```text id="3vup1u"
+[2, 4, 6]
+```
+
+We can write:
+
+```js id="p9kq8m"
+const result = numbers.filter(number => {
+    return number % 2 === 0;
+});
+```
+
+The callback is now making a **decision**.
+
+For each element:
+
+```text id="jv0t1u"
+1 → 1 % 2 === 0 → false → ❌
+2 → 2 % 2 === 0 → true  → ✅
+3 → 3 % 2 === 0 → false → ❌
+4 → 4 % 2 === 0 → true  → ✅
+5 → 5 % 2 === 0 → false → ❌
+6 → 6 % 2 === 0 → true  → ✅
+```
+
+Result:
+
+```text id="8z5yqb"
+[2, 4, 6]
+```
+
+### The crucial difference
+
+`map()`:
+
+```text
+element → transform → new value
+```
+
+`filter()`:
+
+```text
+element → condition → keep/discard
+```
+
+Both return a **new array**.
+
+---
+
+## QA example
+
+Imagine you have test results:
+
+```js id="8a0ny4"
+const results = [
+    "passed",
+    "failed",
+    "passed",
+    "failed"
+];
+```
+
+You could get only failures:
+
+```js id="d6z8ph"
+const failures = results.filter(result => result === "failed");
+```
+
+Now:
+
+```text id="0z9yie"
+failures → ["failed", "failed"]
+results   → ["passed", "failed", "passed", "failed"]
+```
+
+This kind of array manipulation is very common when processing API responses or test data.
+
+---
+
+## Your turn 🧠
+
+Predict this:
+
+```js id="x2b6w8"
+const numbers = [10, 15, 20, 25, 30];
+
+const result = numbers.filter(number => number >= 20);
+
+console.log(result);
+```
+
+Tell me:
+
+1. What is the output?
+2. How many times does the callback execute?
+3. For `15`, does the callback return `true` or `false`?
+4. Does `filter()` change `numbers`?
+
+Then we'll move to **`find()`**, where there is a subtle but important difference from `filter()`.

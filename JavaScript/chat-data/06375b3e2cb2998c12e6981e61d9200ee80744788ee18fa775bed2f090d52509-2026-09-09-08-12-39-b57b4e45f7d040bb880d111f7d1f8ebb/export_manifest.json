@@ -1,0 +1,238 @@
+{
+  "export_files": [
+    {
+      "path": "ads.json",
+      "size_bytes": 271
+    },
+    {
+      "path": "chat.html",
+      "size_bytes": 604319
+    },
+    {
+      "path": "conversation_asset_file_names.json",
+      "size_bytes": 525
+    },
+    {
+      "path": "conversations.json",
+      "size_bytes": 813951
+    },
+    {
+      "path": "file_000000002ac48211bf95a51a32ce192c.dat",
+      "size_bytes": 18748
+    },
+    {
+      "path": "file_000000002d288211a80d338b38c8ac87.dat",
+      "size_bytes": 14072932
+    },
+    {
+      "path": "file_0000000033748211b7ea0558dfc395fc.dat",
+      "size_bytes": 4105792
+    },
+    {
+      "path": "file_000000004a2082118f8c5035914913fe.dat",
+      "size_bytes": 70895
+    },
+    {
+      "path": "file_0000000068888211b53d31647d1907e1.dat",
+      "size_bytes": 7490368
+    },
+    {
+      "path": "file_000000006c288211ad14fd40bafc0c6f.dat",
+      "size_bytes": 11758515
+    },
+    {
+      "path": "file_0000000071e082119cb505a0c87b71b1.dat",
+      "size_bytes": 440070
+    },
+    {
+      "path": "file_000000007a0c82119b080397bb1c3943.dat",
+      "size_bytes": 14065527
+    },
+    {
+      "path": "file_0000000082988211ad49c10d1dce26ad.dat",
+      "size_bytes": 70895
+    },
+    {
+      "path": "file_00000000a0ac82119448bc14351b5324.dat",
+      "size_bytes": 5716
+    },
+    {
+      "path": "file_00000000c5ac8211b5a1415a1c22ad01.dat",
+      "size_bytes": 3796051
+    },
+    {
+      "path": "file_00000000c68c821190ecde16687ad43e.dat",
+      "size_bytes": 18748
+    },
+    {
+      "path": "file_00000000d3548211a78f466a6b9a56de.dat",
+      "size_bytes": 6247008
+    },
+    {
+      "path": "file_00000000e80882078ab41737904d9a19.dat",
+      "size_bytes": 7284
+    },
+    {
+      "path": "library_files.json",
+      "size_bytes": 28788
+    },
+    {
+      "path": "shared_conversations.json",
+      "size_bytes": 384
+    },
+    {
+      "path": "sites/export_manifest.json",
+      "size_bytes": 171
+    },
+    {
+      "path": "user.json",
+      "size_bytes": 170
+    },
+    {
+      "path": "user_settings.json",
+      "size_bytes": 1544
+    }
+  ],
+  "logical_files": {
+    "ads.json": {
+      "files": [
+        "ads.json"
+      ],
+      "sharded": false
+    },
+    "chat.html": {
+      "files": [
+        "chat.html"
+      ],
+      "sharded": false
+    },
+    "conversation_asset_file_names.json": {
+      "files": [
+        "conversation_asset_file_names.json"
+      ],
+      "sharded": false
+    },
+    "conversations.json": {
+      "files": [
+        "conversations.json"
+      ],
+      "sharded": false
+    },
+    "file_000000002ac48211bf95a51a32ce192c.dat": {
+      "files": [
+        "file_000000002ac48211bf95a51a32ce192c.dat"
+      ],
+      "sharded": false
+    },
+    "file_000000002d288211a80d338b38c8ac87.dat": {
+      "files": [
+        "file_000000002d288211a80d338b38c8ac87.dat"
+      ],
+      "sharded": false
+    },
+    "file_0000000033748211b7ea0558dfc395fc.dat": {
+      "files": [
+        "file_0000000033748211b7ea0558dfc395fc.dat"
+      ],
+      "sharded": false
+    },
+    "file_000000004a2082118f8c5035914913fe.dat": {
+      "files": [
+        "file_000000004a2082118f8c5035914913fe.dat"
+      ],
+      "sharded": false
+    },
+    "file_0000000068888211b53d31647d1907e1.dat": {
+      "files": [
+        "file_0000000068888211b53d31647d1907e1.dat"
+      ],
+      "sharded": false
+    },
+    "file_000000006c288211ad14fd40bafc0c6f.dat": {
+      "files": [
+        "file_000000006c288211ad14fd40bafc0c6f.dat"
+      ],
+      "sharded": false
+    },
+    "file_0000000071e082119cb505a0c87b71b1.dat": {
+      "files": [
+        "file_0000000071e082119cb505a0c87b71b1.dat"
+      ],
+      "sharded": false
+    },
+    "file_000000007a0c82119b080397bb1c3943.dat": {
+      "files": [
+        "file_000000007a0c82119b080397bb1c3943.dat"
+      ],
+      "sharded": false
+    },
+    "file_0000000082988211ad49c10d1dce26ad.dat": {
+      "files": [
+        "file_0000000082988211ad49c10d1dce26ad.dat"
+      ],
+      "sharded": false
+    },
+    "file_00000000a0ac82119448bc14351b5324.dat": {
+      "files": [
+        "file_00000000a0ac82119448bc14351b5324.dat"
+      ],
+      "sharded": false
+    },
+    "file_00000000c5ac8211b5a1415a1c22ad01.dat": {
+      "files": [
+        "file_00000000c5ac8211b5a1415a1c22ad01.dat"
+      ],
+      "sharded": false
+    },
+    "file_00000000c68c821190ecde16687ad43e.dat": {
+      "files": [
+        "file_00000000c68c821190ecde16687ad43e.dat"
+      ],
+      "sharded": false
+    },
+    "file_00000000d3548211a78f466a6b9a56de.dat": {
+      "files": [
+        "file_00000000d3548211a78f466a6b9a56de.dat"
+      ],
+      "sharded": false
+    },
+    "file_00000000e80882078ab41737904d9a19.dat": {
+      "files": [
+        "file_00000000e80882078ab41737904d9a19.dat"
+      ],
+      "sharded": false
+    },
+    "library_files.json": {
+      "files": [
+        "library_files.json"
+      ],
+      "sharded": false
+    },
+    "shared_conversations.json": {
+      "files": [
+        "shared_conversations.json"
+      ],
+      "sharded": false
+    },
+    "sites/export_manifest.json": {
+      "files": [
+        "sites/export_manifest.json"
+      ],
+      "sharded": false
+    },
+    "user.json": {
+      "files": [
+        "user.json"
+      ],
+      "sharded": false
+    },
+    "user_settings.json": {
+      "files": [
+        "user_settings.json"
+      ],
+      "sharded": false
+    }
+  },
+  "manifest_file": "export_manifest.json",
+  "version": 1
+}

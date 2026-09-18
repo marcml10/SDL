@@ -1,0 +1,108 @@
+@Function declaration -------
+
+sayHello();
+
+function sayHello() {
+    console.log("Hello!");
+} 
+
+output: It would return "Hello"
+
+This does not work the same as variable, FUNCTION works differently
+
+----------------------------------------
+sayHello();
+
+var sayHello = function () {
+    console.log("Hello!");
+};
+
+This returns sayHello is not a function 
+
+This behaves this way, like sayHello() basically is "undefined" the -
+what would undefined() basically return UNDEFINED
+
+-----------------------------------------
+
+sayHello();
+
+let sayHello = function () {
+    console.log("Hello!");
+};
+
+This would return : ReferenceError: "Cannot access 'sayHello' before initialization"
+
+-----------------------------------------                    
+                                                            _____________ 
+                                                            |           |
+                                                            |  Mind map |
+                                                            |___________|
+
+                                                1. Function declaration
+
+                                                function greet() {}
+                                                greet();
+
+                                                → Function is available before its position
+                                                → Works
+
+
+                                                2. var + function expression
+
+                                                greet();
+                                                var greet = function () {};
+
+                                                → greet is undefined initially
+                                                → Calling undefined → TypeError
+
+
+                                                3. let/const + function expression
+
+                                                greet();
+                                                let greet = function () {};
+
+                                                → binding is in TDZ
+                                                → ReferenceError
+
+
+                                                4. After let/const initialization
+
+                                                const greet = function () {};
+                                                greet();
+
+                                                → binding contains the function
+                                                → Works
+
+
+This is kind of the call stack:
+
+--> CALL STACK
+
+one()   ← currently executing
+two()
+Global
+
+
+an easy example :
+
+function one() {
+    console.log("One");
+}
+
+function two() {
+    console.log("Two - start");
+    one();
+    console.log("Two - end");
+}
+
+function three() {
+    console.log("Three - start");
+    two();
+    console.log("Three - end");
+}
+
+three();
+
+-------------------------------------------
+# recursion and stack overflow : 
+

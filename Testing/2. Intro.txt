@@ -1,0 +1,131 @@
+==================
+Usual workflow
+==================
+
+Requirement
+    ↓
+What can go wrong?
+    ↓
+Test scenarios
+    ↓
+Test cases
+    ↓
+Test data
+    ↓
+Expected result
+    ↓
+Actual result
+    ↓
+Pass / Fail
+    ↓
+Defect investigation
+
+
+====================================
+Workflow change as things go higher 
+====================================
+
+Requirement
+     ↓
+Manual test
+     ↓
+API test
+     ↓
+Database verification
+     ↓
+Automated test
+     ↓
+CI/CD execution
+
+
+==========================
+How a tester should think
+==========================
+
+What can I enter?
+What should happen?
+What shouldn't happen?
+What happens at the boundaries?
+What happens when the user does something unexpected?
+What happens when the system/environment is unusual?
+
+
+==========================
+Exercise for understanding
+==========================
+
+Email:    ____________
+Password: ____________
+
+           [ Login ]
+
+possible test cases to come up. 
+
+-----> My response:
+___________________________________________________________________________________
+|  1. It might not have @ or have whitespaces in the mail id                      |
+|  2. password might have a length less than 8                                    |
+|  3. .com might have something like ..com  that is all i can think of right now  |  
+|_________________________________________________________________________________|
+
+Bugs in the response: 
+1. "Email is invalid" is a test scenario, not necessarily a test case.
+
+For example, the scenario could be:
+Verify that the system rejects an invalid email address.
+
+2. The testing should be around the parameters along this is called "Boundary Testing"
+
+E.g. for the case 8-20
+
+7  ← just below minimum
+8  ← minimum
+9  ← just above minimum
+
+19 ← just below maximum
+20 ← maximum
+21 ← just above maximum
+
+3. This is a principle I want you to remember:
+Test against requirements, not against what you personally think the application should do.
+
+
+----> Correct Response: How should it be done:
+1. Valid input
+2. Invalid input
+3. Empty input
+4. Boundary input
+5. Interaction 
+
+        What if the user:
+        - clicks Login twice?
+        - presses Enter instead?
+        - enters the password and then clears it?
+        - refreshes the page?
+
+6. Authentication behavior
+
+        Email: registered user
+        Password: wrong password
+
+        Email: unregistered user
+        Password: random password       
+
+7. Security-related behavior
+
+        SQL injection
+        XSS
+        credential attacks
+        rate limiting
+        password masking
+
+
+1. valid mail + invalid password -
+2. valid mail + empty password 
+3. valid mail + valid password - 
+4. invalid mail + right password - 
+5. invalid mail + empty password 
+6. invalid mail + invalid password 
+7. empty mail + empty passwords 
+8. empty mail + invalid password 
+9. empty mail + valid password 

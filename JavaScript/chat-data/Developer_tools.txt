@@ -1,0 +1,313 @@
+Ah, yes — I misunderstood you. You mean **conceptual videos for the Web fundamentals we identified for your SDET path**, not JavaScript videos.
+
+For your goal, I’d structure the web-learning videos like this:
+
+### 1. Start with: How the Web actually works
+
+You want to understand this flow:
+
+**Browser → DNS → server → HTTP request → server processing → HTTP response → browser**
+
+[MDN — How the Web Works](https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Web_standards/How_the_web_works?utm_source=chatgpt.com)
+
+For video learning, **Hussein Nasser's “The Journey of an HTTP Request to the Backend”** is particularly relevant. It goes through DNS, TCP, the request, cookies, reverse proxies, API gateways, encryption, etc. ([Class Central][1])
+
+**Watch this when we begin Web Fundamentals.**
+
+---
+
+### 2. HTTP — VERY important for you
+
+Don't just memorize:
+
+> GET = retrieve
+> POST = create
+
+I want you to eventually be able to look at this:
+
+```text
+POST /api/login HTTP/1.1
+Host: example.com
+Content-Type: application/json
+
+{
+  "username": "john",
+  "password": "1234"
+}
+```
+
+and understand **every part of it**.
+
+Then understand the response:
+
+```text
+HTTP/1.1 200 OK
+Content-Type: application/json
+
+{
+  "token": "abc123"
+}
+```
+
+For a quick introduction, **HTTP Fundamentals in 10 Minutes** covers requests, responses, headers, cookies and cURL. ([Class Central][2])
+
+There is also a more comprehensive Hussein Nasser HTTP collection covering HTTP versions, cookies, REST APIs, proxies, TLS, CORS, JWT, etc. ([Class Central][3])
+
+---
+
+### 3. Browser DevTools — extremely important for QA
+
+This is one area where I want you to **learn by doing**, not just watching.
+
+You need to become comfortable with:
+
+* **Elements**
+* **Console**
+* **Network**
+* **Application/Storage**
+* **Sources**
+* request headers
+* response headers
+* request payload
+* response body
+* cookies
+* status codes
+* query parameters
+
+Chrome's Network panel lets you inspect request payloads, headers, responses and cookies directly. ([Chrome for Developers][4])
+
+Microsoft also has short DevTools videos, including specifically **“Learn to Use the Network Tool.”** ([Microsoft Learn][5])
+
+For an SDET, I'd actually make **DevTools practice one of your first exercises**.
+
+---
+
+### 4. Cookies → Sessions → Authentication
+
+This is another major topic.
+
+You should eventually understand:
+
+```text
+Login
+  ↓
+Server authenticates user
+  ↓
+Server creates session / token
+  ↓
+Browser stores credential
+  ↓
+Future requests carry credential
+  ↓
+Server identifies user
+```
+
+Then compare:
+
+* Cookies
+* Sessions
+* localStorage
+* sessionStorage
+* JWT
+* Authorization headers
+* Bearer tokens
+* refresh tokens
+* HttpOnly
+* Secure
+* SameSite
+
+A good video for this is **“Cookies, Sessions, JSON Web Tokens (JWT) and More”** from LearnWebCode, which covers cookies, CSRF, sessions, JWT and localStorage. ([Class Central][6])
+
+MDN's current cookie documentation is also useful alongside the video. ([MDN Web Docs][7])
+
+---
+
+### 5. REST APIs
+
+Then we'll learn:
+
+```text
+Client
+   ↓
+HTTP
+   ↓
+REST API
+   ↓
+Backend
+   ↓
+Database
+```
+
+You'll learn:
+
+* API
+* endpoint
+* resource
+* GET
+* POST
+* PUT
+* PATCH
+* DELETE
+* request body
+* query parameters
+* path parameters
+* headers
+* authentication
+* JSON
+* status codes
+
+This directly prepares you for **API testing** later.
+
+---
+
+### 6. CORS
+
+After you understand HTTP and APIs:
+
+```text
+Frontend: https://app.example.com
+
+          ↓ request
+
+API: https://api.example.com
+```
+
+Then:
+
+> Why did the browser block my request?
+
+That's where **CORS** becomes important.
+
+Don't study CORS before understanding HTTP/origins.
+
+---
+
+### 7. HTTPS / TLS
+
+Only conceptually at first.
+
+You should understand:
+
+```text
+HTTP
+ ↓
+TLS
+ ↓
+HTTPS
+```
+
+and what encryption/certificates are accomplishing.
+
+You **do not** need to learn cryptography mathematically for your SDET goal.
+
+---
+
+### 8. URL / DNS
+
+You'll learn:
+
+```text
+https://api.example.com:443/users?id=10#profile
+│       │                │    │       │
+│       │                │    │       └─ fragment
+│       │                │    └──────── query
+│       │                └───────────── path
+│       └────────────────────────────── domain
+└────────────────────────────────────── protocol
+```
+
+And:
+
+```text
+example.com
+     ↓
+DNS
+     ↓
+IP address
+     ↓
+server
+```
+
+MDN's web fundamentals material covers DNS, URLs, TCP/IP and HTTP at exactly the level we need initially. ([MDN Web Docs][8])
+
+---
+
+## So yes — I'll curate videos **as we learn**
+
+I don't want to give you a giant:
+
+> "Here are 47 YouTube videos. Go watch them."
+
+Instead, when we reach a concept I'll tell you something like:
+
+> **Before today's lesson, watch this 15-minute video on HTTP requests/responses.**
+>
+> Pay attention specifically to headers, methods and status codes.
+>
+> Then come back and I'll give you a request/response and make you reason through it.
+
+Then we'll **test whether you actually understood it**.
+
+The progression I'd use for you is:
+
+```text
+                    WEB FUNDAMENTALS
+
+                         │
+                         ▼
+                How the Web Works
+                         │
+                         ▼
+                 Client / Server
+                         │
+                         ▼
+                  URLs + DNS
+                         │
+                         ▼
+                 HTTP Request
+                         │
+                         ▼
+                HTTP Response
+                         │
+              ┌──────────┴──────────┐
+              ▼                     ▼
+          Headers              Status Codes
+              │
+              ▼
+        Cookies / Sessions
+              │
+              ▼
+       Authentication
+              │
+              ▼
+        REST APIs + JSON
+              │
+         ┌────┴────┐
+         ▼         ▼
+       CORS      HTTPS
+         │
+         ▼
+       DevTools
+         │
+         ▼
+    Network Debugging
+         │
+         ▼
+     API Testing
+         │
+         ▼
+      Playwright
+```
+
+And **DevTools/Network isn't something we'll merely watch** — you'll actually open Chrome and inspect real requests. That is particularly valuable for QA because DevTools exposes the client-server conversation directly. ([Chrome for Developers][4])
+
+So your clarification is correct: **the videos I'm recommending here are Web/HTTP/browser/networking concept videos, separate from the JavaScript-learning videos.**
+
+[1]: https://www.classcentral.com/course/youtube-the-journey-of-an-http-request-to-the-backend-backend-engineering-show-139358?utm_source=chatgpt.com "Free Video: The Journey of an HTTP Request to the Backend - Backend Engineering Show from Hussein Nasser | Class Central"
+[2]: https://www.classcentral.com/course/youtube-http-fundamentals-in-10-minutes-179953?utm_source=chatgpt.com "Free Video: HTTP Fundamentals in 10 Minutes from Cyber Mentor | Class Central"
+[3]: https://www.classcentral.com/course/youtube-http-93075?utm_source=chatgpt.com "Free Video: HTTP from Hussein Nasser | Class Central"
+[4]: https://developer.chrome.com/docs/devtools/network/reference/?utm_source=chatgpt.com "Network features reference  |  Chrome DevTools  |  Chrome for Developers"
+[5]: https://learn.microsoft.com/en-us/microsoft-edge/dev-videos/?utm_source=chatgpt.com "Videos about web development with Microsoft Edge - Microsoft Edge Developer documentation | Microsoft Learn"
+[6]: https://www.classcentral.com/course/youtube-cookies-sessions-json-web-tokens-jwt-and-more-106087?utm_source=chatgpt.com "Free Video: Cookies, Sessions, JSON Web Tokens -JWT- and More from LearnWebCode | Class Central"
+[7]: https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Cookies?utm_source=chatgpt.com "Using HTTP cookies - HTTP | MDN"
+[8]: https://developer.mozilla.org/en-US/docs/Learn_web_development/Getting_started/Web_standards/How_the_web_works?utm_source=chatgpt.com "How the web works - Learn web development | MDN"

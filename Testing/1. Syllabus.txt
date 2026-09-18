@@ -1,0 +1,60 @@
+======================
+Testing fundamentals
+======================
+
+→ Why testing exists
+→ SDLC / STLC
+→ requirements & acceptance criteria
+→ test scenarios vs test cases
+→ test data
+→ defects/bugs
+→ severity vs priority
+→ test execution & reporting
+
+=========================
+Core testing techniques
+=========================
+
+→ equivalence partitioning
+→ boundary value analysis
+→ decision tables
+→ state-transition testing
+→ error guessing
+→ exploratory testing  
+
+=================
+Types of testing
+=================
+
+→ functional / non-functional
+→ smoke / sanity / regression / retesting
+→ integration / system / acceptance
+→ positive / negative testing
+→ UI / API / database testing  
+
+======================
+Practical QA thinking
+======================
+
+→ requirements → scenarios → test cases
+→ finding edge cases
+→ designing test data
+→ investigating failures
+→ writing useful bug reports
+→ deciding what should/shouldn't be automated
+
+===================
+Automation mindset
+===================
+
+→ what to automate
+→ what not to automate
+→ automation pyramid
+→ flaky tests
+→ locators and synchronization
+→ assertions
+→ test isolation
+→ Page Object Model
+→ eventually Playwright
+
+

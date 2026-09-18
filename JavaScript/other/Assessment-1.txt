@@ -1,0 +1,672 @@
+from pathlib import Path
+
+content = r'''JAVASCRIPT MID-TERM PRACTICE TEST
+QA AUTOMATION / SDET TRACK
+
+Coverage:
+- Lexical scope and scope lookup
+- Closures
+- Hoisting
+- var / let / const
+- TDZ
+- Shadowing
+- Functions as values
+- Higher-order functions
+- map / filter / find / some / every / reduce
+- this
+- Normal vs arrow functions
+- call / apply / bind
+
+Instructions:
+1. Do NOT run the code.
+2. Predict the output or result first.
+3. Explain WHY, not just WHAT.
+4. For code-trace questions, write the output in order.
+5. If you are unsure, write your reasoning anyway.
+6. Do not look at the answer key until you finish.
+
+Suggested time: 45–60 minutes
+Total: 40 points
+
+
+==================================================
+PART A — CONCEPTUAL RECALL
+==================================================
+
+1. What is lexical scope?
+--> Lexical scope basically is a concept of how the value of the a variable is obtained within a scope. Its like if something is to be printed and the variable is searching for the value how and where would js actually search for the value and what would be printed. 
+
+2. What does JavaScript scope lookup search for:
+   a) a useful value
+   b) a binding with the requested name (X)
+   c) a global variable
+   d) an object property
+
+3. What is a closure?
+--> I could not probably remember it. But i can tell if i see a code i guess. 
+
+4. Does a closure remember a frozen copy of a variable's value, or does it retain access to the variable/binding?
+--> Usually when a value changes it automatically retains access to it like because it gets updated it remembers the updated value. 
+
+5. What is hoisted with `var`: the declaration, the assignment, or both?
+--> Both
+
+6. What is the Temporal Dead Zone (TDZ)?
+--> Temporal dead concepts comes in when we are using let because it returns something like the value we are trying to access is not intialized yet. 
+
+7. What is shadowing?
+--> It happens when the other value is overlooked when there is already a value within a scope. 
+
+8. What is the main scope difference between `var` and `let`/`const`?
+--> Well accessing is one main difference var works without value initialization. 
+
+9. What is a higher-order function?
+--> 
+
+10. What is the main difference between:
+    `const a = greet`
+    and
+    `const b = greet()`?
+    --> The first one return the value another calls the function and it runs it. 
+
+11. What does `map()` return?
+--> It basically returns an array
+
+12. What does `filter()` return?
+--> Returns an array 
+
+13. What does `find()` return when it finds a match?
+--> Returns a variable alone 
+
+14. What does `find()` return when it finds no match?
+--> 
+
+15. What does `some()` return?
+--> boolean
+
+16. What does `every()` return?
+--> boolean
+
+17. What is the accumulator in `reduce()`?
+--> It is the one the contains all the appending values
+
+18. What determines `this` for a normal function?
+--> the this.project()
+
+19. How does an arrow function determine `this`?
+--> Doesnt matter how it called 
+
+20. What is the key difference between `call()`/`apply()` and `bind()`?
+--> it passes the value and then bind is used for using binding something else into something else into a function 
+
+
+==================================================
+PART B — PREDICT THE OUTPUT
+==================================================
+
+21.
+var x = 10;
+
+function test() {
+    console.log(x);
+    var x = 20;
+    console.log(x);
+}
+
+test();
+console.log(x);
+
+--> undefined, 20, 10
+
+
+22.
+let x = "global";
+
+function test() {
+    console.log(x);
+
+    if (true) {
+        let x = "block";
+        console.log(x);
+    }
+
+    console.log(x);
+}
+
+test();
+
+--> global, block, global 
+
+
+23.
+function outer() {
+    let x = 10;
+
+    function inner() {
+        console.log(x);
+    }
+
+    x = 50;
+    return inner;
+}
+
+const fn = outer();
+fn();
+
+--> 50 
+
+
+24.
+function greet() {
+    console.log("Hello");
+    return "Done";
+}
+
+const a = greet;
+const b = greet();
+
+console.log("A:", a);
+console.log("B:", b);
+
+--> [Function: greet], Done
+
+
+25.
+const numbers = [10, 15, 20, 25, 30];
+
+const result = numbers.filter(number => number >= 20);
+
+console.log(result);
+--> [20,25,30]
+
+
+26.
+const numbers = [10, 15, 20, 25, 30];
+
+const result = numbers.find(number => number >= 20);
+
+console.log(result);
+--> 20
+
+
+27.
+const numbers = [2, 4, 6, 8];
+
+const a = numbers.some(x => x > 5);
+const b = numbers.every(x => x % 2 === 0);
+
+console.log(a);
+console.log(b);
+--> True, True
+
+
+28.
+const numbers = [1, 2, 3, 4];
+
+const total = numbers.reduce((sum, number) => {
+    return sum + number;
+}, 0);
+
+console.log(total);
+--> 10
+
+
+29.
+const numbers = [1, 2, 3, 4];
+
+const result = numbers.reduce((acc, number) => {
+    if (number % 2 === 0) {
+        acc.push(number);
+    }
+    return acc;
+}, []);
+
+console.log(result);
+--> [2,4]
+
+
+==================================================
+PART C — THIS
+==================================================
+
+30.
+const user = {
+    name: "Alice",
+
+    greet() {
+        console.log(this.name);
+    }
+};
+
+user.greet();
+--> Alice, because this === user basically user.name = Alice 
+
+What is printed?
+Why?
+
+
+31.
+const user1 = {
+    name: "Alice",
+
+    greet() {
+        console.log(this.name);
+    }
+};
+
+const user2 = {
+    name: "Bob",
+    greet: user1.greet
+};
+
+user2.greet();
+
+What is printed?
+Why?
+
+--> Bob because this === user2 so user2.name = Bob 
+
+
+32.
+const user = {
+    name: "Alice",
+
+    greet() {
+        console.log(this.name);
+    }
+};
+
+const fn = user.greet;
+fn();
+
+Assume a typical non-strict browser-script environment.
+What happens?
+Why?
+--> It wouold return undefined at this case cause it is a normal function and no this is given to the function 
+
+
+33.
+const user = {
+    name: "Alice",
+
+    greet() {
+        const inner = () => {
+            console.log(this.name);
+        };
+
+        inner();
+    }
+};
+
+user.greet();
+
+What is printed?
+Why?
+--> This will return Alice because this has a this case 
+
+34.
+const user = {
+    name: "Alice",
+
+    greet() {
+        const inner = function () {
+            console.log(this.name);
+        };
+
+        inner();
+    }
+};
+
+user.greet();
+
+Assume a typical non-strict browser-script environment.
+What is different from Question 33?
+Why?
+
+
+35.
+const user = {
+    name: "Alice"
+};
+
+function greet() {
+    console.log(this.name);
+}
+
+greet.call(user);
+
+What is printed?
+What does `call()` do here?
+
+
+36.
+const user = {
+    name: "Alice"
+};
+
+function introduce(age, city) {
+    console.log(this.name, age, city);
+}
+
+introduce.apply(user, [22, "Chennai"]);
+
+What is printed?
+What is the role of the array?
+
+
+37.
+const user = {
+    name: "Bob"
+};
+
+function greet() {
+    console.log(this.name);
+}
+
+const fn = greet.bind(user);
+
+console.log("Before");
+fn();
+console.log("After");
+
+Write the exact output order.
+When does `greet` execute?
+
+
+==================================================
+PART D — EXECUTION TRACE / HARDER
+==================================================
+
+38.
+var x = "global";
+
+function outer() {
+    var x = "outer";
+
+    function inner() {
+        console.log(x);
+    }
+
+    return inner;
+}
+
+const fn = outer();
+fn();
+
+What is printed?
+Explain the scope lookup step by step.
+
+
+39.
+function createCounter() {
+    let count = 0;
+
+    return {
+        increment() {
+            count++;
+            return count;
+        },
+
+        getCount() {
+            return count;
+        }
+    };
+}
+
+const counter = createCounter();
+
+console.log(counter.getCount());
+console.log(counter.increment());
+console.log(counter.increment());
+console.log(counter.getCount());
+
+Predict all four outputs.
+Explain why the value survives between calls.
+
+
+40.
+const user = {
+    name: "Alice",
+
+    greet() {
+        const normal = function () {
+            console.log("normal:", this.name);
+        };
+
+        const arrow = () => {
+            console.log("arrow:", this.name);
+        };
+
+        normal();
+        arrow();
+    }
+};
+
+user.greet();
+
+Assume a typical non-strict browser-script environment.
+
+Predict the two output lines.
+Then explain:
+- Which `this` belongs to `greet`
+- Which `this` belongs to `normal`
+- Where `arrow` gets its `this` from
+
+
+==================================================
+BONUS — QA AUTOMATION CONNECTION
+==================================================
+
+41. You have:
+
+const pageObject = {
+    name: "LoginPage",
+
+    log() {
+        console.log(this.name);
+    }
+};
+
+const log = pageObject.log;
+
+A callback later calls `log()` as a plain function.
+
+What JavaScript concept explains why the behavior can differ from:
+pageObject.log()?
+
+What tool could you use if you needed to preserve the object as `this`?
+
+
+==================================================
+SELF-ASSESSMENT
+==================================================
+
+Before checking the answers, give yourself:
+
+Concepts: ____ / 20
+Code tracing: ____ / 10
+this/call/apply/bind: ____ / 10
+
+Total: ____ / 40
+
+Do NOT judge yourself only by the final answers.
+For every mistake, write:
+1. What I predicted
+2. Correct answer
+3. Why my reasoning was wrong
+4. The rule I should remember
+
+
+==================================================
+ANSWER KEY — CHECK ONLY AFTER FINISHING
+==================================================
+
+1. Scope determined by where code/functions are written; variable lookup
+   follows the lexical nesting of scopes.
+
+2. b) a binding with the requested name.
+
+3. A function retaining access to its lexical scope/bindings even when
+   it executes outside that original lexical location.
+
+4. Access to the binding, not a frozen snapshot of its value.
+
+5. The declaration is hoisted; the assignment is not.
+
+6. The period where a let/const binding exists but cannot be accessed
+   before initialization.
+
+7. An inner scope creates a binding with the same name as an outer
+   binding.
+
+8. var is function-scoped; let/const are block-scoped.
+
+9. A function that takes another function as an argument, returns a
+   function, or both.
+
+10. greet passes the function value/reference; greet() executes the
+    function and stores its return value.
+
+11. A new array containing the transformed values.
+
+12. A new array containing elements for which the predicate is true.
+
+13. The first matching element.
+
+14. undefined.
+
+15. A boolean: true if at least one element passes.
+
+16. A boolean: true only if every element passes.
+
+17. The value carried forward and updated on each reduce iteration.
+
+18. For a normal function, the call site generally determines this.
+
+19. Arrow functions do not create their own this; they use the
+    surrounding/lexical this.
+
+20. call/apply execute immediately; bind creates a new function for
+    later execution with this bound.
+
+21.
+undefined
+20
+10
+
+22.
+global
+block
+global
+
+23.
+50
+
+24.
+Hello
+A: [function]
+B: Done
+
+The exact console representation of A depends on the environment,
+but it is the function itself, not "Hello" or "Done".
+
+25.
+[20, 25, 30]
+
+26.
+20
+
+27.
+true
+true
+
+28.
+10
+
+29.
+[2, 4]
+
+30.
+Alice
+
+`user.greet()` makes this refer to user.
+
+31.
+Bob
+
+The function's definition location does not permanently bind this.
+The call site `user2.greet()` determines this.
+
+32.
+In a typical non-strict browser script, it is a plain call with no
+object before the function. `this` is therefore not user; accessing
+`this.name` commonly produces undefined.
+
+In strict mode/modules, this would instead be undefined and
+`this.name` would throw a TypeError.
+
+33.
+Alice
+
+greet is called as user.greet(), so greet's this is user.
+The arrow inherits that surrounding this.
+
+34.
+The normal inner function is called as inner(), so it does not inherit
+greet's this. In a typical non-strict browser-script environment,
+this is not user, so this.name commonly produces undefined.
+
+35.
+Alice
+
+call() immediately invokes greet and explicitly supplies user as this.
+
+36.
+Alice 22 Chennai
+
+apply() immediately invokes the function, sets this to user, and takes
+the remaining arguments as an array.
+
+37.
+Before
+Bob
+After
+
+bind() creates a new function first. greet executes only when fn() is
+called.
+
+38.
+outer
+
+inner's x lookup starts in inner. There is no local x there, so lookup
+continues to outer, where x is "outer". The global x is never selected
+because the outer binding is found first.
+
+39.
+0
+1
+2
+2
+
+The methods close over the same count binding created by the call to
+createCounter(). Each method accesses the same retained binding.
+
+40.
+normal: undefined
+arrow: Alice
+
+Typical non-strict browser-script assumption.
+
+greet's this = user because of user.greet().
+normal is a separate normal function called as normal(), so it does not
+use greet's this.
+arrow has no own this and inherits greet's this, which is user.
+
+41.
+The call-site/this behavior of normal functions explains the difference.
+bind() can create a function with this explicitly bound to pageObject.
+'''
+path = Path("/mnt/data/JavaScript_Midterm_Practice_Test.txt")
+path.write_text(content, encoding="utf-8")
+print(path)
+

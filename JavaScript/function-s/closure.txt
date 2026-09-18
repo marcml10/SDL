@@ -1,0 +1,173 @@
+Main concepts:
+1. Variable lifetime + reachability
+2. Garbage collection and closures
+3. Hoisting (start)
+
+Closure
+   ↓
+Why does a variable survive?
+   ↓
+Who is still referencing it?
+   ↓
+When can JavaScript remove it?
+   ↓
+How are variables created before execution?
+   ↓
+Hoisting
+
+
+@Variable lifetime
+------------------------------------
+function greet() {
+    let message = "hello";
+
+    console.log(message);
+}
+
+greet();
+------------------------------------
+
+Conception of people: The variable exists because the function exists 
+
+Call greet()
+       |
+       ↓
+Create execution context
+
+message → "hello"
+
+console.log runs
+
+Function finishes
+
+Execution context disappears
+
+message disappears
+
+@Reachability 
+---------------------------------------
+let user = {
+    name: "Alex"
+};
+
+global scope
+
+user
+ |
+ ↓
+Object
+{
+ name:"Alex"
+}
+
+its accessible in this case which means when i call user.name i can access it 
+BUT if 
+
+user = null
+
+The reference of the obj. that was in user has disappeared
+it become garbage and is cleaned out. 
+
+---connecting with CLOSURES
+---------------------------------------------
+function createCounter() {
+    let count = 0;
+
+    return function () {
+        count++;
+        console.log(count);
+    };
+}
+
+const counter = createCounter();
+
+---------------------------------------------
+counter
+   |
+   ↓
+inner function
+   |
+   ↓
+lexical environment
+   |
+   ↓
+count → 0
+
+The count variable is still reachable.
+Why?
+Because the returned function still needs it.
+
+So JavaScript says:
+"I cannot remove this environment yet. Something can still access it." And the function won't work without the variable if 
+it does not exist
+
+
+"Any variables that are still needed by the inner function remain reachable."
+
+-----------------------------------------
+
+function outer() {
+
+    let important = "keep me";
+    let useless = "remove me";
+
+    return function inner() {
+        console.log(important);
+    };
+}
+
+Closure environment
+
+important → "keep me"
+
+useless → can be removed
+
+----------------------------------------
+@Hoisting 
+
+var x;
+console.log(x);
+x = 10;
+
+x exists
+↓
+but has not yet received 10
+↓
+x → undefined
+
+
+now using var x = 10; Now it exists does not throw an error 
+
+
+console.log(x);
+let x = 10;
+
+It would throw "ReferenceError: Cannot access 'x' before initialization"
+
+x → exists
+    ↓
+not initialized yet
+    ↓
+cannot be accessed
+
+This period is called the Temporal Dead Zone (TDZ)
+
+
+# The var case -------------------
+binding exists
++
+initial value is undefined
+
+# The let case ------------------ (const has the same behavior as let )
+binding exists
++
+no usable value yet
++
+access is forbidden 
+
+
+let and const
+│
+├── bindings are created for their scope
+├── cannot be accessed before initialization
+└── have a Temporal Dead Zone

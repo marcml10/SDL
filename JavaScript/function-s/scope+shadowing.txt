@@ -1,0 +1,785 @@
+Exactly — you're reasoning in the right direction. Let's tighten a couple of details, because **Q1 and Q3 are testing an important distinction in JavaScript scope.**
+
+### Q1 — ✅ Correct
+
+```js
+var x = 10;
+
+function test() {
+    console.log(x);
+    var x = 20;
+}
+
+test();
+```
+
+Your answer: **`undefined`** ✅
+
+The important part isn't merely "there is a `var` inside the function." It's:
+
+```js
+function test() {
+    var x;              // created + initialized to undefined
+    console.log(x);     // undefined
+    x = 20;
+}
+```
+
+So when JavaScript looks for `x`:
+
+```text
+test()'s scope
+      ↓
+    local x exists → undefined
+      ↓
+    STOP
+```
+
+It **doesn't continue to the global `x`**.
+
+That's a very important mental model:
+
+> **Scope lookup searches for a binding, not for the nearest useful value.**
+
+---
+
+### Q2 — ✅ Correct
+
+```js
+function outer() {
+    let x = 10;
+
+    function inner() {
+        console.log(x);
+    }
+
+    x = 50;
+
+    return inner;
+}
+
+const fn = outer();
+fn();
+```
+
+Output:
+
+```text
+50
+```
+
+Your explanation is basically right, but let's make it more precise.
+
+The closure doesn't remember:
+
+```text
+x = 10
+```
+
+as a frozen snapshot.
+
+It retains access to the **binding**:
+
+```text
+x
+```
+
+That binding was later changed:
+
+```js
+x = 50;
+```
+
+So when `inner()` eventually runs:
+
+```js
+console.log(x);
+```
+
+it goes back to that captured lexical environment and asks:
+
+> "What's the current value of `x`?"
+
+Answer: `50`.
+
+---
+
+# Q3 — ⚠️ This is the interesting one
+
+You said:
+
+> first one prints not initialized error for sure
+
+**This is the part we need to correct.**
+
+Code:
+
+```js
+let x = "global";
+
+function test() {
+    console.log(x);
+
+    if (true) {
+        let x = "block";
+        console.log(x);
+    }
+
+    console.log(x);
+}
+
+test();
+```
+
+Output:
+
+```text
+global
+block
+global
+```
+
+There is **no ReferenceError**.
+
+Why?
+
+Because this:
+
+```js
+if (true) {
+    let x = "block";
+}
+```
+
+creates a **block-scoped `x`**.
+
+That `x` exists only inside the `{ }`.
+
+Think of the scopes like this:
+
+```text
+GLOBAL SCOPE
+│
+│  x = "global"
+│
+└── test() FUNCTION SCOPE
+    │
+    │  no x here
+    │
+    ├── console.log(x)
+    │       ↓
+    │   search test scope
+    │   no x
+    │       ↓
+    │   search global
+    │   x = "global" ✅
+    │
+    └── if block
+        │
+        │  let x = "block"
+        │
+        ├── console.log(x)
+        │       ↓
+        │   block x → "block" ✅
+        │
+        └── block ends
+            ↓
+        block x disappears
+```
+
+Then:
+
+```js
+console.log(x);
+```
+
+after the `if` block searches again:
+
+```text
+test scope → no x
+      ↓
+global scope → x = "global"
+```
+
+So:
+
+```text
+global
+block
+global
+```
+
+### 🔥 The key distinction
+
+Compare these two:
+
+**Case A — `var`:**
+
+```js
+function test() {
+    console.log(x);
+    var x = 20;
+}
+```
+
+`var` is **function-scoped**, so the local `x` exists throughout `test()`.
+
+**Case B — `let`:**
+
+```js
+function test() {
+    console.log(x);
+
+    if (true) {
+        let x = "block";
+    }
+}
+```
+
+That `x` belongs **only to the `if` block**.
+
+So outside the block, JavaScript can look elsewhere.
+
+---
+
+### One subtle thing to remember
+
+Your "TDZ = ReferenceError" reasoning **wasn't wrong in itself**. You just applied it to the wrong `x`.
+
+For example, **this** really does throw:
+
+```js
+let x = "global";
+
+function test() {
+    console.log(x);
+    let x = "local";
+}
+
+test();
+```
+
+Why?
+
+Because the `let x` belongs to the **function's scope**, and its binding is in the TDZ when `console.log(x)` runs.
+
+It doesn't say:
+
+> "Local x isn't ready, I'll use global x."
+
+Instead:
+
+> "I found the local `x`, but it's in the TDZ." → `ReferenceError`
+
+That's the next-level scope rule I want you to lock in.
+
+---
+
+## 🧠 Your score
+
+| Question | Result                        |
+| -------- | ----------------------------- |
+| Q1       | ✅ Correct                     |
+| Q2       | ✅ Correct                     |
+| Q3       | ⚠️ Concept partially mixed up |
+
+And honestly, **Q3 is exactly the kind of mistake that's useful to catch now**, because it shows you're connecting hoisting + TDZ + scope, but haven't yet completely separated **function scope** from **block scope**.
+
+**Today's next concept: `let`/`const` block scope vs `var` function scope — with nested blocks and shadowing.** This is **Deep** for your QA/SDET path because it directly prevents debugging mistakes later.
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Yes — **all three are correct.** 🔥 Let's make the reasoning slightly more precise so you're not just memorizing the answers.
+
+### Q1 → ✅ 20
+
+```js
+var x = 10;
+
+if (true) {
+    var x = 20;
+}
+
+console.log(x);
+```
+
+`var` is **function-scoped**, and here there isn't even a function — the `if` block does not create a separate scope for `var`.
+
+So effectively:
+
+```js
+var x = 10;
+x = 20;
+
+console.log(x); // 20
+```
+
+Your reasoning — *"it is accessible even though the if block stands"* — is correct. More precisely: **the `if` block doesn't create a separate scope for `var`.**
+
+---
+
+### Q2 → ✅ 20, then 10
+
+```js
+let x = 10;
+
+if (true) {
+    let x = 20;
+    console.log(x);
+}
+
+console.log(x);
+```
+
+Inside the block:
+
+```text
+block x = 20  ← found first
+```
+
+After the block ends:
+
+```text
+block x is no longer accessible
+        ↓
+outer x = 10
+```
+
+So:
+
+```text
+20
+10
+```
+
+---
+
+### Q3 → ✅ `"block"`, then `"function"`
+
+```js
+let x = "global";
+
+function test() {
+    let x = "function";
+
+    if (true) {
+        let x = "block";
+        console.log(x);
+    }
+
+    console.log(x);
+}
+```
+
+Your reasoning is right. But let's make the **lookup process** explicit.
+
+First `console.log(x)`:
+
+```text
+inside if-block
+     ↓
+x = "block"       ← FOUND
+     ↓
+STOP
+```
+
+Output:
+
+```text
+block
+```
+
+Then the block finishes.
+
+Second `console.log(x)`:
+
+```text
+test() function scope
+     ↓
+x = "function"    ← FOUND
+     ↓
+STOP
+```
+
+Output:
+
+```text
+function
+```
+
+The global `"global"` is never reached in either lookup.
+
+---
+
+# 🔑 The rule I want you to remember
+
+Whenever you see:
+
+```js
+console.log(x);
+```
+
+**don't immediately look at the value.**
+
+Ask:
+
+> **"Starting from where this code is executing, what is the nearest scope containing a binding called `x`?"**
+
+Then stop there.
+
+```text
+Current block
+     ↓
+Function scope
+     ↓
+Outer scope
+     ↓
+Global scope
+```
+
+That's **lexical lookup**.
+
+And this is going to become extremely useful when we get into **closures, callbacks, modules, and debugging Playwright tests.**
+
+---
+
+## Next: Functions as Values — Deep
+
+Now we're going to make an important jump:
+
+```js
+function greet() {
+    console.log("Hello");
+}
+```
+
+Most beginners think:
+
+> "That's a function."
+
+That's true, but JavaScript also treats the function itself as a **value**.
+
+That means we can do things like:
+
+```js
+const x = greet;
+```
+
+and:
+
+```js
+const x = greet();
+```
+
+These are **completely different**.
+
+Before I explain them, predict this:
+
+```js
+function greet() {
+    return "Hello";
+}
+
+const a = greet;
+const b = greet();
+
+console.log(a);
+console.log(b);
+```
+
+### What do you think `a` contains and what does `b` contain?
+
+And most importantly: **why are `greet` and `greet()` different?**
+
+
+--------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Yes — these are exactly the right questions to ask. Let's separate them.
+
+## 1. What if `var` is inside a function inside a function?
+
+Yes, the result **can change depending on where the `var` is declared**, because `var` belongs to the **nearest function scope**.
+
+For example:
+
+```js
+function outer() {
+    var x = 10;
+
+    function inner() {
+        var x = 20;
+        console.log(x);
+    }
+
+    inner();
+    console.log(x);
+}
+
+outer();
+```
+
+Output:
+
+```text
+20
+10
+```
+
+There are **two different `x` bindings**:
+
+```text
+outer() scope
+└── x = 10
+
+    inner() scope
+    └── x = 20
+```
+
+Why? `var x` in `inner()` belongs to `inner()`'s function scope. It doesn't overwrite `outer()`'s `x`.
+
+### But this is different:
+
+```js
+function outer() {
+    var x = 10;
+
+    function inner() {
+        x = 20;
+    }
+
+    inner();
+    console.log(x);
+}
+
+outer();
+```
+
+Output:
+
+```text
+20
+```
+
+Because there is **no `var x` inside `inner()`**.
+
+So JavaScript looks outward:
+
+```text
+inner scope
+   ↓
+Does inner have x? ❌
+   ↓
+outer scope
+   ↓
+x = 10 ✅
+   ↓
+change that x to 20
+```
+
+This is another very important distinction:
+
+```js
+var x = 20;  // create/use a local binding
+
+x = 20;      // modify an existing binding found through lookup
+```
+
+---
+
+# 2. Your Q2 question — YES, exactly
+
+You asked:
+
+> If the `if` block had no `console.log`, would the remaining `console.log` print the block variable?
+
+No. **It would print `10`.**
+
+```js
+let x = 10;
+
+if (true) {
+    let x = 20;
+}
+
+console.log(x);
+```
+
+Output:
+
+```text
+10
+```
+
+Why?
+
+The block's `x`:
+
+```js
+let x = 20;
+```
+
+exists **only inside `{ }`.
+
+Once the block finishes:
+
+```text
+if block
+┌─────────────────┐
+│ x = 20          │
+└─────────────────┘
+        ↓
+     destroyed/
+  inaccessible here
+```
+
+The final `console.log(x)` is outside that block:
+
+```text
+outside block
+      ↓
+x = 10
+```
+
+So the presence or absence of the **inner `console.log` doesn't affect the variable's lifetime**.
+
+This is an important distinction:
+
+> **Scope determines where a variable can be accessed, not whether you actually use it.**
+
+---
+
+# 3. `greet` vs `greet()` — you're close, but let's correct one phrase
+
+You said:
+
+> the first one return only the value of the function
+
+Almost. The first one **doesn't return the value produced by the function**.
+
+```js
+function greet() {
+    return "Hello";
+}
+
+const a = greet;
+```
+
+Here:
+
+```text
+a
+↓
+the function itself
+```
+
+You're storing a **reference to the function**.
+
+You can later do:
+
+```js
+a();
+```
+
+and get:
+
+```text
+Hello
+```
+
+---
+
+But:
+
+```js
+const b = greet();
+```
+
+actually **executes** `greet()` immediately.
+
+The function returns:
+
+```text
+"Hello"
+```
+
+So:
+
+```text
+a → function
+b → "Hello"
+```
+
+Think of it like this:
+
+```text
+greet
+  ↓
+"Here is the function itself"
+
+greet()
+  ↓
+"Run the function"
+  ↓
+"Hello"
+```
+
+This distinction is **extremely important for QA automation**, because you'll constantly encounter things like:
+
+```js
+page.click
+```
+
+versus
+
+```js
+page.click()
+```
+
+and callbacks such as:
+
+```js
+button.onClick = handleClick;
+```
+
+versus:
+
+```js
+button.onClick = handleClick();
+```
+
+Those are fundamentally different ideas.
+
+---
+
+## One quick prediction before we continue 🔥
+
+Don't run it:
+
+```js
+function greet() {
+    console.log("Hello");
+    return "Done";
+}
+
+const a = greet;
+const b = greet();
+
+console.log("A:", a);
+console.log("B:", b);
+```
+
+**Questions:**
+
+1. How many times does `"Hello"` get printed?
+2. What does `b` contain?
+3. What does `a` contain?
+4. Does `const a = greet` execute the function?
+
+Then we'll move into **higher-order functions**, where this "functions are values" idea becomes really useful.
+
+----------------------------------------------------------------------------------------------------------------------------------------------------
+
+fn        // the function itself
+fn()      // execute the function
+return fn // return the function itself
+return fn() // execute it and return its result

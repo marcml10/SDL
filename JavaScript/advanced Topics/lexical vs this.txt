@@ -1,0 +1,264 @@
+Yes — **`undefined` is the expected result in the usual browser-script case**, and your confusion is actually pointing at an important distinction we need to nail down.
+
+You're mixing two different mechanisms:
+
+1. **Lexical scope** → determines where a variable like `name` is found.
+2. **`this`** → is a special value determined by how a normal function is called.
+
+They can appear in the same code, but they answer **different questions**.
+
+---
+
+## 1. Lexical scope: "Where do I find this variable?"
+
+Suppose:
+
+```js
+const name = "Global";
+
+function greet() {
+    const message = "Hello";
+    
+    function inner() {
+        console.log(name);
+        console.log(message);
+    }
+
+    inner();
+}
+
+greet();
+```
+
+When JavaScript sees:
+
+```js
+console.log(name);
+```
+
+it asks:
+
+> "Where is the binding called `name`?"
+
+It searches lexically:
+
+```text
+inner scope
+    ↓
+greet scope
+    ↓
+global scope
+```
+
+It eventually finds:
+
+```js
+const name = "Global";
+```
+
+That's **lexical scope**.
+
+---
+
+## 2. `this`: "What object/value is this function being called with?"
+
+Now look at:
+
+```js
+const user = {
+    name: "Alice",
+
+    greet() {
+        console.log(this.name);
+    }
+};
+
+user.greet();
+```
+
+When JavaScript sees:
+
+```js
+this.name
+```
+
+it is **not doing lexical scope lookup for `this`**.
+
+`this` is a special keyword.
+
+Because we called:
+
+```js
+user.greet();
+```
+
+the call-site determines:
+
+```text
+this → user
+```
+
+Therefore:
+
+```js
+this.name
+↓
+user.name
+↓
+"Alice"
+```
+
+---
+
+# The easiest way to distinguish them
+
+Whenever you see a variable, ask:
+
+### Is it a normal variable?
+
+```js
+name
+message
+count
+user
+```
+
+Then you're dealing with **lexical scope**.
+
+Ask:
+
+> "Where was this variable/binding defined?"
+
+---
+
+### Is it `this`?
+
+```js
+this.name
+this.count
+this.user
+```
+
+Then you're dealing with **`this`**.
+
+For a normal function, ask:
+
+> "How was this function called?"
+
+---
+
+## Now look at your confusing example
+
+```js
+const user = {
+    name: "Alice",
+
+    greet() {
+        const inner = function () {
+            console.log(this.name);
+        };
+
+        inner();
+    }
+};
+
+user.greet();
+```
+
+There are actually **two different function calls**:
+
+```text
+user.greet()
+    ↓
+this = user
+
+    inside greet:
+
+inner()
+    ↓
+plain function call
+    ↓
+different `this`
+```
+
+So even though `greet()` was called with `user`:
+
+```js
+user.greet();
+```
+
+that does **not automatically give `inner()` the same `this`**.
+
+That's why the inner function's `this` is not `user`.
+
+---
+
+# Here's the really important comparison
+
+### Lexical variable
+
+```js
+const user = {
+    name: "Alice",
+
+    greet() {
+        const inner = () => {
+            console.log(name);
+        };
+    }
+};
+```
+
+For `name`, JavaScript searches the **lexical environment**.
+
+---
+
+### `this`
+
+```js
+const user = {
+    name: "Alice",
+
+    greet() {
+        const inner = function () {
+            console.log(this.name);
+        };
+    }
+};
+```
+
+For `this`, we don't search outward through lexical scope.
+
+**`this` belongs to the function invocation rules.**
+
+---
+
+And this is going to lead directly to one of the most useful things about JavaScript:
+
+```js
+const inner = () => {
+    console.log(this.name);
+};
+```
+
+Arrow functions behave **differently** with `this`.
+
+That's our next step. But before I introduce it, I want to make sure the distinction is solid.
+
+### Your turn
+
+Tell me which mechanism is being used in each:
+
+**A**
+
+```js
+console.log(name);
+```
+
+**B**
+
+```js
+console.log(this.name);
+```
+
+And explain the difference in your own words.
