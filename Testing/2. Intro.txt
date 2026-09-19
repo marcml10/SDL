@@ -129,3 +129,99 @@ Test against requirements, not against what you personally think the application
 7. empty mail + empty passwords 
 8. empty mail + invalid password 
 9. empty mail + valid password 
+
+-------------------1----------------------
+
+What exactly are we trying to learn from the test?
+
+Invalid email + invalid password
+→ "Invalid email"
+
+Maybe the email validation happens before authentication.
+
+# A test isn't just an input.
+# A proper test case has an expected result.
+
+
+======= Example 
+Input:
+Email = registered@example.com
+Password = wrongpassword
+
+Expected:
+Login should fail and an appropriate error message should be displayed.
+
+====== Flowchart 
+INPUT
+  ↓
+ACTION
+  ↓
+EXPECTED BEHAVIOR
+
+------------2----------------
+
+===== Important concept:
+
+---> Boundary Value Analysis
+
+The basic idea is:
+-- When a requirement defines a range, values around the edges deserve special attention.
+
+--------------------3--------------------
+
+Another thing you missed: email format variations:
+
+======= examples
+
+registered@example.com       → valid
+registeredexample.com        → invalid format
+registered@                  → invalid format
+@example.com                 → invalid format
+registered @example.com      → invalid format
+
+
+======= How the approach should actually be:
+Email
+├── valid
+├── invalid format
+├── empty
+├── boundary
+└── unusual values
+
+Password
+├── valid
+├── invalid
+├── empty
+├── minimum boundary
+├── maximum boundary
+└── unusual values
+
+
+======== CHALLENGE 
+Password must contain between 8 and 20 characters inclusive. Possible test conditions that would try to use? 
+
+7   → reject
+8   → accept
+9   → accept
+
+19  → accept
+20  → accept
+21  → reject
+
+This is called ------------"Boundary Value Analysis (BVA)"-------------
+
+# Important point to note. 
+Which inputs provide useful evidence about whether the requirement is implemented correctly?
+
+
+======= New concept: 
+Equivalence Partitioning asks: What groups of inputs can I divide the input space into?
+
+
+======= Problem : Age must be between 18 and 60 inclusive.
+Considering this problem we can group them. And the testing becomes way more easier 
+
+>18     18>60      60<
+
+
+======= Problem : A shopping website allows a user to purchase 1–10 units of a product in a single order.
