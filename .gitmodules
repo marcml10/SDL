@@ -1,0 +1,3 @@
+[submodule "JavaScript/JavaScript/Projects/awesome-login-pages"]
+	path = JavaScript/JavaScript/Projects/awesome-login-pages
+	url = https://github.com/LoginRadius/awesome-login-pages.git
