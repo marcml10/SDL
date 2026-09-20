@@ -1,0 +1,19 @@
+                    CHROME DEVTOOLS
+                          │
+        ┌─────────────────┼─────────────────┐
+        ↓                 ↓                 ↓
+     Elements          Console           Network
+        │                 │                 │
+     HTML/CSS          JS/runtime       HTTP traffic
+        │                 │                 │
+        └─────────────────┼─────────────────┘
+                          ↓
+                  Application / Storage
+                          │
+                 Cookies / LocalStorage
+                 SessionStorage / Cache
+                          │
+                          ↓
+                       Sources
+                          │
+                 Debugging JavaScript

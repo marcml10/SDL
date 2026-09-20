@@ -1,0 +1,35 @@
+==================
+How the web works 
+==================
+
+This thing is done by us: 
+You ---> Chrome ---> Server IP ---> HTTP/HTTPS request ---> web server ---> HTTP responese ---> Chrome ---> HTML/CSS/JS ---> Rendered webpage 
+
+
+How would the JS do:
+Page loads --> HTML --> JS executes --> fetch --> HTTP request --> Backend --> JSON responese --> JS processess JSON --> Page changes 
+
+
+Few things to note and remember as a SDL:                          =============================================
+
+Did the click happen?
+        ↓
+Did JavaScript execute?
+        ↓
+Was a request sent?
+        ↓
+What URL?
+        ↓
+What HTTP method?
+        ↓
+What headers?
+        ↓
+What payload?
+        ↓
+What response status?
+        ↓
+What response body?
+        ↓
+Did the frontend process the response?
+
+
