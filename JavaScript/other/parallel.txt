@@ -1,0 +1,51 @@
+        ┌──────────────┐
+        │ JavaScript   │
+        │   + Testing  │  ← CORE
+        └──────┬───────┘
+               ↓
+        ┌──────────────┐
+        │ Web / SQL /  │
+        │     API      │  ← SUPPORTING
+        └──────┬───────┘
+               ↓
+        ┌──────────────┐
+        │   PROJECT    │  ← PRACTICAL
+        └──────┬───────┘
+               ↓
+        ┌──────────────┐
+        │ Playwright   │
+        │ Git → CI/CD  │
+        └──────┬───────┘
+               ↓
+        ┌──────────────┐
+        │SDET PORTFOLIO│
+        └──────────────┘
+
+
+🟨 JavaScript: continue objects → prototypes → async concepts
+🟦 Testing: finish decision tables → state transitions → real test cases
+🟩 Web: keep learning HTTP/DevTools alongside them
+🛠️ Project: start a tiny QA/testing project, not a huge one
+
+
+
+Requirements
+     ↓
+Test Design
+     ↓
+UI ─────── API
+ ↓          ↓
+Playwright  API tests
+     ↓
+    SQL
+     ↓
+Test Reports
+     ↓
+Git/GitHub
+     ↓
+CI/CD
+     ↓
+     SDET PROJECT
+
+
+     
