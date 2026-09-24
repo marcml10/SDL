@@ -1,0 +1,197 @@
+Current
+  ↓
+Decision Tables          ← we're here
+  ↓
+State Transition Testing
+  ↓
+Error Guessing
+  ↓
+Exploratory Testing
+  ↓
+Test Case Design
+  ↓
+Severity vs Priority
+  ↓
+Bug Reports / Defect Lifecycle
+  ↓
+≈ 45% 
+
+========= Problem: Premium member = YES AND Order amount ≥ ₹500
+
+A = Premium member
+B = Order ≥ ₹500
+C = FREE100 coupon + order ≥ ₹1000
+
+well in this case : 
+----- premium : Yes/No
+----- >500 or <500
+----- coupon : Yes/No
+----- >1000 or below 
+
+
+
+====== Concept: STATE TRANSITION TESTING
+
+
+             deposit
+       ┌─────────────────┐
+       ↓                 │
+   ┌────────┐         ┌────────┐
+   │  ZERO  │ ──────→ │ ACTIVE │
+   └────────┘         └────────┘
+       ↑                 │
+       │                 │
+       └──── withdraw ───┘
+
+
+CURRENT STATE → ACTION → NEW STATE
+
+
+======= Probelm : A user starts as: Account = ACTIVE
+
+Correct password → remains ACTIVE
+1 wrong password → ACTIVE
+2 wrong passwords → ACTIVE
+3 consecutive wrong passwords → LOCKED
+Once LOCKED, even the correct password cannot log in.
+
+
+Tell me the states you think exist.  ---> Active and locked 
+
+Refreshing the page doesn't necessarily reset an account's state. ####
+
+
+
+Current	    Action	            Next State
+
+🟢 ACTIVE	Correct password	🟢 ACTIVE
+🟢 ACTIVE	Wrong #1	        🟢 ACTIVE
+🟢 ACTIVE	Wrong #2	        🟢 ACTIVE
+🟢 ACTIVE	Wrong #3	        🔴 LOCKED
+🔴 LOCKED	Correct password	🔴 LOCKED
+🔴 LOCKED	Wrong password	    🔴 LOCKED
+
+
+But here's the REAL lesson
+Notice what happened?
+
+With EP/BVA, we mostly asked: "Is this input valid?"
+
+With Decision Tables, we asked: "What combination of conditions produces this result?"
+
+With State Transition Testing, we're asking: "Given where the system currently is, what happens when this event occurs?"
+
+😈 VALHALLA LEVEL 2
+
+After 3 consecutive wrong passwords, the account becomes LOCKED.
+A correct password resets the wrong-attempt counter to 0.
+Once LOCKED, the account stays locked until an administrator unlocks it.
+
+ACTIVE
+  │
+  ├─ Wrong #1 → ?
+  ├─ Wrong #2 → ?
+  ├─ Correct password → ?
+  └─ Wrong #3 → LOCKED
+
+A user does:
+Wrong → Wrong → Correct → Wrong → Wrong → Wrong
+
+Answer: active active active active active locked
+
+State-transition testing can involve HISTORY.
+State + Event + History → New State ######
+Decision Tables → State Transition Testing: CLEARED. #####
+
+
+
+=========== Concept : Error Guessing
+
+========= Problem: Give me 5 things you would try because you suspect a developer might have made a mistake.
+
+Email is required.
+Password is required.
+Password must be 8–20 characters.
+Login button should be disabled until both fields contain something.
+Valid credentials → login succeeds.
+Invalid credentials → error message appears.
+
+=== possible suspects: 
+
+Email containing only spaces → developer checks empty but forgets whitespace.
+Password containing only spaces → accepted because length is technically ≥8.
+Copy/paste into password → accidentally blocked.
+Leading/trailing spaces in email → system may handle them incorrectly.
+Clicking Login twice quickly → two requests might be sent.
+Correct credentials but button remains disabled → UI state isn't updated.
+Invalid credentials → server returns an error but UI doesn't display it.
+Login succeeds → browser back button might expose the login page incorrectly.
+
+========= Problem : Username must contain 5–15 characters and at least one number.
+
+
+========= Problem : Username must contain 5–15 characters and at least one number.
+
+Would you immediately call this a bug, or would you first ask whether the requirement actually says whitespace-only usernames are forbidden?
+
+---> This is not a bug. 
+
+
+============ Problem: Password must be 8–20 characters.
+Developer code: length > 8 AND length < 20
+
+---> Defect (That's a behavior that contradicts the requirement → defect.)
+
+
+Error Guessing = how you thought of the test.
+Defect = what you discovered when the actual behavior violates the requirement.
+
+
+============ Concept: Exploratory Testing 
+
+Problem: 
+
+Add products
+Increase/decrease quantity
+Remove products
+Apply a coupon
+Proceed to checkout
+
+i would try: 
+1. Add items worth 1000 or more apply coupon 
+2. after avaling coupon remove items to get the value of cart under 1000 to check the coupon status + checkout 
+3. item worth > 1000 + coupon + checkout for final price 
+
+4. 
+
+₹1200 cart
+   ↓
+Apply FREE100
+   ↓
+Remove items → ₹800
+   ↓
+Add items → ₹1100
+   ↓
+Checkout
+
+
+
+=========== Problem : 
+
+Cart = ₹1200
+FREE100 = Applied ✅
+
+Now:
+
+Refresh the page.
+Close the browser.
+Reopen the site.
+Go back to the cart.
+
+
+---> Most importantly just think does the coupon survive thats all the more important 
+
+And you naturally combined:
+EP + BVA + Decision Tables + State Transition + Exploratory Testing
+
+

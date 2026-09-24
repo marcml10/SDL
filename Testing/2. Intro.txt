@@ -225,4 +225,29 @@ Considering this problem we can group them. And the testing becomes way more eas
 
 
 ======= Problem : A shopping website allows a user to purchase 1–10 units of a product in a single order.
+Considring this problem well i would say: 
+---> Boundries should be around 0,1,2 and 9,10,11 
+---> Partitioning should be like less than 1 more than 10 between 1 and 10 
+
+
+======= Problem : Coupon code that is about 6 characters no more no less. 
+Try answersing this easy one anyways 
+
+
+========== New concept: Decision table testing 
+
+A user gets free shipping if:
+
+-- they are a premium member AND
+---their order is ₹500 or more.
+
+Otherwise, shipping is charged.
+
+| Premium? | Order ≥ ₹500? | Expected          |
+| -------- | ------------- | ----------------- |
+| No       | No            | No free shipping  |
+| No       | Yes           | No free shipping  |
+| Yes      | No            | No free shipping  |
+| Yes      | Yes           | Free shipping     |
+
 
