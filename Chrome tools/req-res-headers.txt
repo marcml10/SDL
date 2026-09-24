@@ -1,0 +1,62 @@
+Request
+├── GET
+├── If-Modified-Since
+├── If-None-Match
+└── Cache-Control
+
+Response
+└── ?
+
+Cache-Control: max-age=10
+
+Response received
+      ↓
+Chrome caches it
+      ↓
+10 seconds
+      ↓
+cached response becomes stale
+      ↓
+revalidation may be needed
+
+
+REQUEST HEADERS
+────────────────────
+If-Modified-Since
+If-None-Match
+
+
+RESPONSE HEADERS
+────────────────────
+Cache-Control
+
+
+If-None-Match: "1788889932" : request 
+Cache-Control: max-age=10 : response 
+
+
+POST /api/login
+Status: 401
+
+Request:
+Content-Type: application/json
+Accept: application/json
+
+Response:
+Content-Type: application/json
+
+POST /api/login
+Status: 401
+
+Request Payload:
+{
+  "email": "user@example.com",
+  "password": "wrongpassword"
+}
+
+Response:
+{
+  "error": "Invalid credentials"
+}
+
+

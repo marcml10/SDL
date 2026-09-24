@@ -1,0 +1,115 @@
+CHROME DEVTOOLS — NETWORK SUMMARY
+Topics Covered After Status Codes
+
+1. REQUEST HEADERS
+- Request headers contain information sent from the browser/client to the server.
+- Important headers we inspected:
+  - Content-Type → format of the request body.
+  - Accept → response formats the client can accept.
+  - Cookie → sends stored cookie data to the server.
+  - Authorization → can carry authentication credentials/tokens.
+  - Cache-related headers → help control/validate cached resources.
+
+2. RESPONSE HEADERS
+- Response headers contain information sent from the server to the browser.
+- Important headers:
+  - Content-Type → format of the response body.
+  - Cache-Control → caching instructions.
+  - Set-Cookie → tells the browser to create/update a cookie.
+- If Set-Cookie is absent, it only means that particular response did not set/update a cookie.
+
+3. REQUEST PAYLOAD
+- Payload = data sent by the client to the server.
+- Usually inspected for POST/PUT/PATCH requests.
+- Example:
+  POST /api/login
+  Payload → email + password
+- For QA, payload helps verify exactly what data the application is sending.
+
+4. RESPONSE BODY
+- Response body = data/result returned by the server.
+- It may contain:
+  - Success information
+  - Error information
+  - JSON data
+  - Objects/arrays
+  - Sometimes nothing
+- When debugging an API request, inspect both:
+  Request Payload → what we sent
+  Response Body → what the server returned
+
+5. AUTHENTICATION & COOKIES
+- Authentication does not always require an Authorization header.
+- Cookies can also carry session/state information.
+- A request may contain Cookie even when Authorization is absent.
+- Set-Cookie in a response means the server is asking the browser to create/update a cookie.
+
+6. QUERY PARAMETERS
+- Query parameters appear after ? in a URL.
+- Format:
+  ?parameter=value
+- Multiple parameters:
+  ?q=cineb&oq=cineb
+- Parameter name = key.
+- Parameter value = supplied value.
+- Parameters can control searches, filters, IDs, options, etc.
+- We tested this by changing:
+  q=cineb → q=tesla
+  and observed that the page results changed.
+
+7. PARAMETER IMPORTANCE
+- Not every parameter necessarily affects the visible result.
+- We tested the `oq` parameter and found that changing it did not noticeably change the result.
+- Therefore, QA testing should verify a parameter's actual behavior instead of assuming its purpose from its name.
+
+8. TRACING UI ACTIONS
+- We used the Network tab while performing an Add-to-Cart action.
+- Multiple requests can happen from a single UI action.
+- We found:
+  GET → get-cart-items
+  POST → another cart-related operation
+- Do not assume:
+  GET = unimportant
+  POST = automatically the main action
+- Instead, inspect:
+  URL
+  Method
+  Payload
+  Response
+  Status
+  and the behavior produced by the request.
+
+9. GET CART ITEMS REQUEST
+- We found:
+  add-to-cart/get-cart-items?clientName=SiteWideActionExecutor&_=...
+- The URL itself strongly suggests that this GET request retrieves the current cart items.
+- This helped us connect the Network request to actual application behavior.
+
+10. UNDERSCORE (_) QUERY PARAMETER
+- The request contained a parameter like:
+  _=1790270904363
+- We initially considered whether it could be a cookie ID.
+- After triggering the request again, we observed that the value changed.
+- This strongly suggests it is being used as a changing request/cache-busting value.
+- The number also resembles a Unix timestamp in milliseconds.
+- We should treat the exact purpose as an inference unless the application documentation confirms it.
+
+11. QA MINDSET PRACTICED
+Instead of simply looking at requests, we practiced:
+UI action
+    ↓
+Network request
+    ↓
+Method + URL
+    ↓
+Headers
+    ↓
+Payload
+    ↓
+Response
+    ↓
+Actual application behavior
+
+This is the important DevTools skill:
+Don't just identify a request.
+Investigate what the request actually does.

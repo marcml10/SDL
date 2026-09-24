@@ -1,0 +1,18 @@
+| Code    | Meaning               | Typical situation                           |
+| ------- | --------------------- | ------------------------------------------- |
+|   200   | OK                    | Request succeeded and resource was returned |
+|   304   | Not Modified          | Cached resource can be reused               |
+|   404   | Not Found             | Requested resource doesn't exist            |
+|   500   | Internal Server Error | Server encountered an error                 |
+
+2xx → Success
+3xx → Redirection / cache-related responses
+4xx cineb&oq=cineb&gs_lcrp=EgZjaHJvbWUyBggAEEUYOTIGCAEQRRg8MgoIAhAAGLEDGIAEMgoIAxAAGLEDGIAEMgoIBBAAGLEDGIAEMg0IBRAAGIMBGLEDGIAEMgYIBhBFGDwyBggHEEUYPNIBCDE5NjRqMGo3qAIAsAIA&sourceid=chrome&source=chrome.ob&ie=UTF-8→ Client/request problem
+5xx → Server problem
+
+
+Problem:
+========
+POST /api/login
+Status: 401 Unauthorized
+

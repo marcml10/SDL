@@ -33,3 +33,158 @@ What response body?
 Did the frontend process the response?
 
 
+Javascript making requests: 
+=============================
+
+Page loads
+   ↓
+HTML
+   ↓
+JavaScript executes
+   ↓
+fetch("/api/users")
+   ↓
+HTTP request
+   ↓
+Backend
+   ↓
+JSON response
+   ↓
+JavaScript processes JSON
+   ↓
+Page changes
+
+
+
+How as a QA would be using:
+=============================
+
+Did the click happen?
+        ↓
+Did JavaScript execute?
+        ↓
+Was a request sent?
+        ↓
+What URL?
+        ↓
+What HTTP method?
+        ↓
+What headers?
+        ↓
+What payload?
+        ↓
+What response status?
+        ↓
+What response body?
+        ↓
+Did the frontend process the response?
+
+
+================================
+Lesson 1 — Getting into DevTools
+================================
+
+First mission: Open a normal website you use frequently.
+Then: F12 → Network
+
+options: [document,stylesheet, script, image, font, xhr, fetch, ...]
+
+Loading a webpage involves many network requests, not just one request.
+
+Browser
+   │
+   ├── GET /                 → HTML
+   ├── GET /style.css       → CSS
+   ├── GET /app.js           → JavaScript
+   ├── GET /logo.png        → image
+   ├── GET /font.woff2      → font
+   ├── GET /api/products     → data
+   └── ...
+
+
+Step 1 — Open DevTools
+
+Network
+────────────────────────────────────────────────────────
+Name        Status    Type       Initiator       Size
+────────────────────────────────────────────────────────
+example     200       document   ...
+style.css   200       stylesheet ...
+app.js      200       script     ...
+logo.png    200       png        ...
+
+Step 2 — Reload the page
+Pick the request whose Type is document
+
+Step 3 — Find these 3 things
+① Request URL
+② Request Method
+③ Status Code
+
+Step 4 — Now look at Headers4
+General
+
+Request URL:     https://example.com/
+Request Method:  GET
+Status Code:     200 OK
+
+REQUEST
+┌──────────────────────────┐
+│ URL                      │
+│ Method                   │
+│ Headers                  │
+│ Body                     │
+└──────────────────────────┘
+              ↓
+           SERVER
+              ↓
+┌──────────────────────────┐
+│ Status Code              │
+│ Headers                  │
+│ Body                     │
+└──────────────────────────┘
+RESPONSE
+
+
+Problem:
+========
+
+Suppose we have:
+
+HTTP/1.1 200 OK
+
+{
+    "name": "John",
+    "email": "john@example.com"
+}
+
+
+Buckets list:
+===============
+
+CURRENT
+  ↓
+Network basics ✅
+HTTP request/response ✅
+304 + caching ✅
+ETag / If-Modified-Since ✅
+  ↓
+REQUEST HEADERS
+  ↓
+RESPONSE HEADERS
+  ↓
+STATUS CODES
+  ↓
+QUERY PARAMETERS
+  ↓
+REQUEST PAYLOAD
+  ↓
+RESPONSE BODY
+  ↓
+FILTERING / SEARCHING REQUESTS
+  ↓
+PRACTICAL DEBUGGING
+  ↓
+≈ 30%
+
+
