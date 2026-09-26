@@ -1,0 +1,25 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Sign In / Sign Up swap animation ─────────────────────────────────────
+   The word "In" on LoginPage and "Up" on SignUpPage animate like they
+   physically swap places — one slides down out, the other slides up in.     */
+
+@keyframes slideUpIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideDownIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.animate-slide-up {
+  animation: slideUpIn 0.3s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+.animate-slide-down {
+  animation: slideDownIn 0.3s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
