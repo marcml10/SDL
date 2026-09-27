@@ -1,25 +1,19 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap');
 
-/* ── Sign In / Sign Up swap animation ─────────────────────────────────────
-   The word "In" on LoginPage and "Up" on SignUpPage animate like they
-   physically swap places — one slides down out, the other slides up in.     */
+@import "tailwindcss";
 
-@keyframes slideUpIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to   { opacity: 1; transform: translateY(0); }
+* {
+  font-family: 'DM Sans', sans-serif;
 }
 
-@keyframes slideDownIn {
-  from { opacity: 0; transform: translateY(-10px); }
-  to   { opacity: 1; transform: translateY(0); }
+html,
+body,
+#root {
+  min-height: 100%;
 }
 
-.animate-slide-up {
-  animation: slideUpIn 0.3s cubic-bezier(0.22, 1, 0.36, 1) forwards;
-}
-
-.animate-slide-down {
-  animation: slideDownIn 0.3s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+body {
+  margin: 0;
+  background-color: #F3F4F6;
+  color: #111827;
 }
