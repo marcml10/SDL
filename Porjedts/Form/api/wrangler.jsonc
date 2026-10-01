@@ -13,7 +13,17 @@
 	"upload_source_maps": true,
 	"compatibility_flags": [
 		"nodejs_compat"
-	]
+	],
+	"d1_databases": [
+		{
+			"binding": "music_store_db",
+			"database_name": "music-store-db",
+			"database_id": "fa7c2130-a32f-4eb3-9dd0-03751189e3b6"
+		}
+	],
+	"triggers": {
+		"crons": ["0 0 * * *"]
+	}
 	/**
 	 * Smart Placement
 	 * https://developers.cloudflare.com/workers/configuration/smart-placement/#smart-placement

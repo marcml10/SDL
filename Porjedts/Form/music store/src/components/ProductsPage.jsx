@@ -1,5 +1,4 @@
-import { useState, useMemo } from "react";
-import { products } from "../data/products";
+import { useState, useMemo, useEffect } from "react";
 import ProductCard from "./ProductCard";
 import Sidebar from "./Sidebar";
 
@@ -12,6 +11,22 @@ const sortOptions = [
 ];
 
 export default function ProductsPage({ onAddToCart }) {
+  const [products, setProducts] = useState([]);
+  const [loading, setLoading] = useState(true);
+  
+  useEffect(() => {
+    fetch("http://localhost:8787/api/products")
+      .then(res => res.json())
+      .then(data => {
+        setProducts(data);
+        setLoading(false);
+      })
+      .catch(err => {
+        console.error("Failed to fetch products", err);
+        setLoading(false);
+      });
+  }, []);
+
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [selectedPrice, setSelectedPrice] = useState(null);
   const [selectedTag, setSelectedTag] = useState(null);
@@ -126,7 +141,7 @@ export default function ProductsPage({ onAddToCart }) {
       {/* Sidebar + Products */}
       <div className="flex gap-8">
         {/* Sidebar — Desktop */}
-        <div className="hidden md:block shrink-0">
+        {/* <div className="hidden md:block shrink-0">
           <Sidebar
             selectedCategory={selectedCategory}
             onCategoryChange={setSelectedCategory}
@@ -135,8 +150,8 @@ export default function ProductsPage({ onAddToCart }) {
             selectedTag={selectedTag}
             onTagChange={setSelectedTag}
           />
-        </div>
-
+        </div> */}
+      
         {/* Main Product Content */}
         <div className="flex-1 min-w-0">
           {/* Toolbar */}
@@ -196,7 +211,12 @@ export default function ProductsPage({ onAddToCart }) {
           )}
 
           {/* Product Grid */}
-          {filtered.length > 0 ? (
+          {loading ? (
+            <div className="flex flex-col items-center justify-center py-24 text-center">
+              <div className="w-8 h-8 border-4 border-indigo-200 border-t-indigo-600 rounded-full animate-spin mb-4"></div>
+              <p className="text-slate-500 text-sm animate-pulse">Syncing live inventory from external stores...</p>
+            </div>
+          ) : filtered.length > 0 ? (
             <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-x-6 gap-y-10">
               {filtered.map((product) => (
                 <ProductCard

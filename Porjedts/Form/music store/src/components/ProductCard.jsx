@@ -19,7 +19,7 @@ export default function ProductCard({ product, onAddToCart }) {
       <div className="relative overflow-hidden rounded-2xl bg-white aspect-square mb-3 border border-[#4B5563]/10">
 
         <img
-          src={product.image}
+          src={product.image_url || product.image}
           alt={product.name}
           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
         />
@@ -56,7 +56,7 @@ export default function ProductCard({ product, onAddToCart }) {
                 xmlns="http://www.w3.org/2000/svg"
                 className="w-3 h-3"
                 fill={
-                  i < Math.floor(product.rating)
+                  i < Math.floor(product.rating || 4)
                     ? "#FCA5A5"
                     : "#D1D5DB"
                 }
@@ -68,19 +68,19 @@ export default function ProductCard({ product, onAddToCart }) {
           </div>
 
           <span className="text-xs text-[#4B5563]">
-            ({product.reviews})
+            ({product.reviews || 0})
           </span>
         </div>
 
         {/* Price */}
         <div className="flex items-center gap-2">
           <span className="text-sm font-semibold text-[#111827]">
-            ${product.price}
+            ₹{product.price}
           </span>
 
-          {product.originalPrice && (
+          {(product.original_price || product.originalPrice) && (
             <span className="text-xs text-[#4B5563] line-through">
-              ${product.originalPrice}
+              ₹{product.original_price || product.originalPrice}
             </span>
           )}
         </div>
