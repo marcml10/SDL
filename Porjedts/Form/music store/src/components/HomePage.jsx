@@ -4,7 +4,7 @@ import ProductCard from "./ProductCard";
 import Categories from "./Categories";
 import FilterSidebar from "./FilterSidebar";
 
-export default function HomePage({ onNavigate, onAddToCart }) {
+export default function HomePage({ onNavigate, onAddToCart, onViewProduct }) {
   const [products, setProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [activeCategory, setActiveCategory] = useState("All");
@@ -155,6 +155,7 @@ export default function HomePage({ onNavigate, onAddToCart }) {
                           key={product.id}
                           product={product}
                           onAddToCart={onAddToCart}
+                          onViewProduct={onViewProduct}
                         />
                       ))}
                     </div>

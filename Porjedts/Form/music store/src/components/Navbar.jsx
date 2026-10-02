@@ -1,9 +1,6 @@
 import { useState } from "react";
 
-export default function Navbar({ cartCount, onNavigate, currentPage }) {
-  // Mock login state for demonstration
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
-
+export default function Navbar({ cartCount, onNavigate, currentPage, isLoggedIn, setIsLoggedIn }) {
   return (
     <>
       {/* Left Dock - Brand Logo */}
@@ -18,19 +15,7 @@ export default function Navbar({ cartCount, onNavigate, currentPage }) {
         </nav>
       )}
 
-      {/* Center Dock - Search Bar */}
-      {currentPage !== "cart" && (
-        <nav className="absolute top-[15px] left-1/2 -translate-x-1/2 z-50 h-12 flex items-center bg-white/20 backdrop-blur-xl shadow-sm rounded-full px-4 border border-white/30 transition-transform duration-300 hover:scale-110">
-          <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4 text-white/90 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2.5}>
-            <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-          </svg>
-          <input 
-            type="text" 
-            placeholder="Search" 
-            className="bg-transparent border-none outline-none text-base text-white placeholder-white/80 font-medium w-48 sm:w-64"
-          />
-        </nav>
-      )}
+
 
       {/* Right Dock - Cart and Auth */}
       <nav className="absolute top-[15px] right-[15px] z-50 h-12 flex items-center gap-3 bg-white/80 backdrop-blur-md shadow-lg rounded-full px-5 border border-white/40">

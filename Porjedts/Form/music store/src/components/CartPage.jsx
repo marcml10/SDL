@@ -1,6 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 export default function CartPage({ cart, setCart, onNavigate }) {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const updateQuantity = (id, newQty) => {
     if (newQty < 1) return;
     setCart(prev => prev.map(item => item.id === id ? { ...item, qty: newQty } : item));

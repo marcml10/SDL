@@ -1,9 +1,10 @@
 import { useState } from "react";
 
-export default function ProductCard({ product, onAddToCart }) {
+export default function ProductCard({ product, onAddToCart, onViewProduct }) {
   const [added, setAdded] = useState(false);
 
-  const handleAdd = () => {
+  const handleAdd = (e) => {
+    e.stopPropagation(); // Prevent clicking Add to Cart from navigating
     onAddToCart(product);
     setAdded(true);
 
@@ -13,7 +14,7 @@ export default function ProductCard({ product, onAddToCart }) {
   };
 
   return (
-    <div className="group">
+    <div className="group cursor-pointer" onClick={() => onViewProduct?.(product)}>
 
       {/* Image */}
       <div className="relative overflow-hidden rounded-2xl bg-white aspect-square mb-3 border border-[#4B5563]/10">

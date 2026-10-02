@@ -3,10 +3,13 @@ import Navbar from "./components/Navbar";
 import HomePage from "./components/HomePage";
 import ProductsPage from "./components/ProductsPage";
 import CartPage from "./components/CartPage";
+import ProductPage from "./components/ProductPage";
 
 export default function App() {
   const [page, setPage] = useState("home");
   const [cart, setCart] = useState([]);
+  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   const addToCart = (product) => {
     setCart(prev => {
@@ -16,19 +19,37 @@ export default function App() {
     });
   };
 
+  const handleNavigateToProduct = (product) => {
+    setSelectedProduct(product);
+    setPage("product");
+  };
+
   const cartCount = cart.reduce((sum, item) => sum + item.qty, 0);
 
   return (
     <div className="min-h-screen bg-[#F3F4F6] text-[#111827]">
       {/* Floating Dock Navbar */}
-      <Navbar cartCount={cartCount} onNavigate={setPage} currentPage={page} />
+      <Navbar 
+        cartCount={cartCount} 
+        onNavigate={setPage} 
+        currentPage={page} 
+        isLoggedIn={isLoggedIn}
+        setIsLoggedIn={setIsLoggedIn}
+      />
 
       {page === "home" ? (
-        <HomePage onNavigate={setPage} onAddToCart={addToCart} />
+        <HomePage onNavigate={setPage} onAddToCart={addToCart} onViewProduct={handleNavigateToProduct} />
       ) : page === "products" ? (
         <ProductsPage onAddToCart={addToCart} />
       ) : page === "cart" ? (
         <CartPage cart={cart} setCart={setCart} onNavigate={setPage} />
+      ) : page === "product" && selectedProduct ? (
+        <ProductPage 
+          product={selectedProduct} 
+          onAddToCart={addToCart} 
+          onNavigate={setPage} 
+          isLoggedIn={isLoggedIn}
+        />
       ) : null}
     </div>
   );
