@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import ProductReviews from "./ProductReviews";
 
-export default function ProductPage({ product, onAddToCart, onNavigate, isLoggedIn }) {
+export default function ProductPage({ product, onAddToCart, onNavigate, isLoggedIn, onLoginClick }) {
   const [added, setAdded] = useState(false);
   const [qty, setQty] = useState(1);
 
@@ -198,7 +198,12 @@ export default function ProductPage({ product, onAddToCart, onNavigate, isLogged
         </div>
 
         {/* Reviews Card */}
-        <ProductReviews rating={product.rating || 4} reviewCount={product.reviews || 24} isLoggedIn={isLoggedIn} />
+        <ProductReviews 
+          rating={product.rating || 4} 
+          reviewCount={product.reviews || 24} 
+          isLoggedIn={isLoggedIn}
+          onLoginRequest={onLoginClick}
+        />
 
       </div>
     </div>

@@ -1,6 +1,4 @@
-import { useState } from "react";
-
-export default function Navbar({ cartCount, onNavigate, currentPage, isLoggedIn, setIsLoggedIn }) {
+export default function Navbar({ cartCount, onNavigate, currentPage, isLoggedIn, onLoginClick, onLogoutClick }) {
   return (
     <>
       {/* Left Dock - Brand Logo */}
@@ -47,13 +45,13 @@ export default function Navbar({ cartCount, onNavigate, currentPage, isLoggedIn,
         {!isLoggedIn ? (
           <div className="flex items-center gap-2">
             <button
-              onClick={() => setIsLoggedIn(true)}
+              onClick={onLoginClick}
               className="text-xs font-medium text-[#4B5563] hover:text-[#2D1B69] transition-colors px-2 py-1"
             >
               Sign In
             </button>
             <button
-              onClick={() => setIsLoggedIn(true)}
+              onClick={onLoginClick}
               className="text-xs font-medium bg-[#111827] text-white px-4 py-1.5 rounded-full hover:bg-[#2D1B69] transition-colors"
             >
               Sign Up
@@ -61,7 +59,7 @@ export default function Navbar({ cartCount, onNavigate, currentPage, isLoggedIn,
           </div>
         ) : (
           <button
-            onClick={() => setIsLoggedIn(false)}
+            onClick={onLogoutClick}
             className="text-xs font-medium text-[#4B5563] hover:text-[#2D1B69] transition-colors px-2 py-1 flex items-center gap-1.5"
           >
             <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>

@@ -1,15 +1,32 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Navbar from "./components/Navbar";
 import HomePage from "./components/HomePage";
 import ProductsPage from "./components/ProductsPage";
 import CartPage from "./components/CartPage";
 import ProductPage from "./components/ProductPage";
+import AuthModal from "./components/AuthModal";
+import { supabase } from "./supabaseClient";
 
 export default function App() {
   const [page, setPage] = useState("home");
   const [cart, setCart] = useState([]);
   const [selectedProduct, setSelectedProduct] = useState(null);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [showAuthModal, setShowAuthModal] = useState(false);
+
+  useEffect(() => {
+    // Check active session on mount
+    supabase.auth.getSession().then(({ data: { session } }) => {
+      setIsLoggedIn(!!session);
+    });
+
+    // Listen for auth changes (login, logout)
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setIsLoggedIn(!!session);
+    });
+
+    return () => subscription.unsubscribe();
+  }, []);
 
   const addToCart = (product) => {
     setCart(prev => {
@@ -34,8 +51,11 @@ export default function App() {
         onNavigate={setPage} 
         currentPage={page} 
         isLoggedIn={isLoggedIn}
-        setIsLoggedIn={setIsLoggedIn}
+        onLoginClick={() => setShowAuthModal(true)}
+        onLogoutClick={() => supabase.auth.signOut()}
       />
+
+      <AuthModal isOpen={showAuthModal} onClose={() => setShowAuthModal(false)} />
 
       {page === "home" ? (
         <HomePage onNavigate={setPage} onAddToCart={addToCart} onViewProduct={handleNavigateToProduct} />
@@ -49,6 +69,7 @@ export default function App() {
           onAddToCart={addToCart} 
           onNavigate={setPage} 
           isLoggedIn={isLoggedIn}
+          onLoginClick={() => setShowAuthModal(true)}
         />
       ) : null}
     </div>

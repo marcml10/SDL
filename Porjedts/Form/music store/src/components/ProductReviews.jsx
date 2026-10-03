@@ -1,26 +1,24 @@
 import { useState } from "react";
 
-export default function ProductReviews({ rating = 4, reviewCount = 24, isLoggedIn }) {
-  const [showLoginPrompt, setShowLoginPrompt] = useState(false);
+export default function ProductReviews({ rating, reviewCount, isLoggedIn, onLoginRequest }) {
   const [showReviewForm, setShowReviewForm] = useState(false);
 
-  // Generate some realistic-looking mock reviews
   const reviews = [
     {
       id: 1,
       name: "Alex M.",
-      date: "2 weeks ago",
+      date: "2 days ago",
       rating: 5,
-      title: "Incredible clarity and build quality",
-      text: "I've been using this gear in my home studio for the past month and the difference is night and day. The build quality feels extremely premium. Definitely worth the investment."
+      title: "Absolutely incredible clarity",
+      text: "I've been using these for professional studio work and the frequency response is flat and true. You can hear every subtle detail in the mix."
     },
     {
       id: 2,
       name: "Sarah T.",
-      date: "1 month ago",
+      date: "1 week ago",
       rating: 5,
-      title: "Perfect for live setups",
-      text: "Exactly what I needed for gigging. It's rugged, reliable, and sounds fantastic right out of the box. Highly recommend to any touring musicians."
+      title: "Worth every penny",
+      text: "Upgraded from a budget setup and the difference is night and day. The build quality feels premium and they look great on my desk."
     },
     {
       id: 3,
@@ -36,7 +34,7 @@ export default function ProductReviews({ rating = 4, reviewCount = 24, isLoggedI
     if (isLoggedIn) {
       setShowReviewForm(true);
     } else {
-      setShowLoginPrompt(true);
+      onLoginRequest?.();
     }
   };
 
@@ -99,37 +97,6 @@ export default function ProductReviews({ rating = 4, reviewCount = 24, isLoggedI
               <button onClick={() => setShowReviewForm(false)} className="px-4 py-2 text-sm font-medium text-slate-600 hover:text-slate-900">Cancel</button>
               <button onClick={() => setShowReviewForm(false)} className="px-6 py-2 bg-slate-900 text-white text-sm font-bold rounded-full hover:bg-slate-800">Submit Review</button>
             </div>
-          </div>
-        </div>
-      )}
-
-      {/* Login Prompt Dialog Overlay */}
-      {showLoginPrompt && (
-        <div className="fixed inset-0 z-[100] flex items-center justify-center bg-black/40 backdrop-blur-sm animate-fade-in p-4">
-          <div className="bg-white rounded-3xl p-8 max-w-sm w-full shadow-2xl relative transform transition-all">
-            <button 
-              onClick={() => setShowLoginPrompt(false)}
-              className="absolute top-4 right-4 text-slate-400 hover:text-slate-600"
-            >
-              <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            </button>
-            <div className="w-12 h-12 bg-indigo-50 rounded-full flex items-center justify-center mb-4 text-indigo-600">
-              <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
-              </svg>
-            </div>
-            <h3 className="text-xl font-bold text-slate-900 mb-2">Please Login</h3>
-            <p className="text-slate-500 text-sm mb-6 leading-relaxed">
-              You need to be logged into your account to leave a verified review. You can log in using the menu in the top right corner.
-            </p>
-            <button 
-              onClick={() => setShowLoginPrompt(false)}
-              className="w-full bg-slate-900 text-white py-3 rounded-xl font-bold hover:bg-slate-800 transition-colors"
-            >
-              Okay, got it
-            </button>
           </div>
         </div>
       )}
